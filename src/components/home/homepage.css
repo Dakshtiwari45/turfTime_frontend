@@ -1,0 +1,45 @@
+/* Parent container */
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Content wrapper (Sidebar + Main Content) */
+.content-wrapper {
+  display: flex;
+  flex-grow: 1;
+  padding: 10px;
+  gap: 15px; /* Sidebar aur content ke beech gap */
+  align-items: flex-start;
+}
+
+/* Sidebar (Fixed Properly) */
+.sidebar {
+  width: 260px; /* Sidebar size */
+  background: #1e3a8a;
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  position: sticky;
+  top: 100px; /* Header ke neeche ka gap */
+  height: auto;
+}
+
+/* Main Content (Proper Width) */
+.main-content {
+  flex-grow: 1;
+  text-align: center;
+  background: #f8fafc;
+  padding: 300px;
+  min-height: 80vh; /* Footer se properly connected */
+}
+
+/* Footer (Proper Position) */
+.footer {
+  background: #1e293b;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: auto; /* Automatically adjust */
+}

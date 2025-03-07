@@ -1,0 +1,151 @@
+/* Fullscreen Overlay */
+.signup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Background Video */
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Glassmorphism Signup Box */
+.signup-container {
+    width: 90%;
+    max-width: 350px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Heading */
+.signup-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Input Fields */
+.signup-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Placeholder Styling */
+.signup-container input::placeholder {
+    color: #d5f5e3;
+}
+
+/* Password Container */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Password Input */
+.password-container input {
+    width: 100%;
+    padding-right: 40px; /* Space for eye icon */
+}
+
+/* Eye Icon */
+.eye-icon {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+}
+
+/* Owner Checkbox - Centered */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    margin: 15px 0;
+}
+
+/* Checkbox Input */
+.checkbox-container input {
+    width: 18px;
+    height: 18px;
+    accent-color: #3498db;
+}
+
+/* Signup Button */
+.signup-container button {
+    width: 100%;
+    padding: 12px;
+    background: #3498db;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.signup-container button:hover {
+    background: #217dbb;
+}
+
+/* Error Message */
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-top: -8px;
+    text-align: left;
+}
+
+/* Login Link */
+.login-link {
+    display: block;
+    margin-top: 15px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .signup-container {
+        width: 80%;
+        max-width: 300px;
+    }
+}

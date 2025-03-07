@@ -1,0 +1,123 @@
+.footer {
+    background-color: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* Dark Purple */
+    color: white;
+    padding: 20px 8%;  /* Reduced padding */
+    font-family: 'Poppins', sans-serif;
+    margin-top: 50px; /* Added margin to push it down */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-left, .footer-right {
+    width: 40%;  /* Reduced width */
+}
+
+.footer-left h2,
+.footer-right h2 {
+    font-size: 22px;  /* Slightly smaller */
+    color: #ffcc00;
+}
+
+.footer-left p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+.contact {
+    margin-top: 10px;
+}
+
+.contact p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.contact a {
+    color: #ffcc00;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.contact a:hover {
+    text-decoration: underline;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-right ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-right ul li {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.footer-right ul li a {
+    color: #ffcc00;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-right ul li a:hover {
+    text-decoration: underline;
+}
+
+.social-icons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: #ffcc00;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    padding-top: 10px;  /* Reduced padding */
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;  /* Reduced margin */
+    position: relative;
+}
+
+/* Centered Copyright with Line */
+.footer-bottom::before, 
+.footer-bottom::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 35%;  /* Slightly reduced width of lines */
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.footer-bottom::before {
+    left: 0;
+}
+
+.footer-bottom::after {
+    right: 0;
+}
