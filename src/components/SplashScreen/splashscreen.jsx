@@ -7,8 +7,8 @@ const SplashScreen = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigate("/homepage"); // Redirects to home after 5 seconds
-        }, 5000);
+            navigate("/homepage"); // Redirects to home after 3 seconds
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, [navigate]);
@@ -16,13 +16,9 @@ const SplashScreen = () => {
     return (
         <div className="splash-container">
             <img src="/logo.png" alt="Logo" className="splash-logo" />
-            <p className="splash-tagline">"Where passion meets play!"
-            </p>
+            <p className="splash-tagline">"Where passion meets play!"</p>
         </div>
     );
 };
 
 export default SplashScreen;
-
-
-

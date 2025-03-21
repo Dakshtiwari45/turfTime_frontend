@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./signup.css";
-import signupVideo from "/public/background.mp4"; // Make sure to place your video here
+import signupVideo from "/public/video(1).mp4"; // Make sure to place your video here
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -127,4 +127,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup; 

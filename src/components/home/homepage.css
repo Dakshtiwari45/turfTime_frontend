@@ -1,45 +1,151 @@
-/* Parent container */
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Homepage Container */
 .homepage-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: #eef2f3;
 }
 
-/* Content wrapper (Sidebar + Main Content) */
+/* Header Styling */
+.header {
+  padding: 25px;
+  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  color: white;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+/* Content Wrapper */
 .content-wrapper {
   display: flex;
-  flex-grow: 1;
-  padding: 10px;
-  gap: 15px; /* Sidebar aur content ke beech gap */
+  flex: 1;
+  margin-top: 30px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px;
+  background: #102a57;
+  color: white;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 50px;
+  margin-left: 260px;
+  display: flex;
+  justify-content: center;
   align-items: flex-start;
 }
 
-/* Sidebar (Fixed Properly) */
-.sidebar {
-  width: 260px; /* Sidebar size */
-  background: #1e3a8a;
+/* Turf Grid */
+.turf-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(280px, 1fr)); /* Turf width badha di */
+  gap: 30px;
+  justify-content: center;
+  max-width: 1500px;
+  width: 100%;
+  margin: 20px auto;
+}
+
+/* Turf Card */
+.turf-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 350px; /* Width increase ki */
+}
+
+.turf-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.turf-card img {
+  width: 100%;
+  height: 220px; /* Slightly taller images */
+  object-fit: cover;
   border-radius: 12px;
-  color: white;
-  position: sticky;
-  top: 100px; /* Header ke neeche ka gap */
-  height: auto;
 }
 
-/* Main Content (Proper Width) */
-.main-content {
-  flex-grow: 1;
-  text-align: center;
-  background: #f8fafc;
-  padding: 300px;
-  min-height: 80vh; /* Footer se properly connected */
+.turf-card h2 {
+  font-size: 20px;
+  color: #1e3a8a;
+  margin: 12px 0;
+  font-weight: 600;
 }
 
-/* Footer (Proper Position) */
+.turf-card p {
+  font-size: 16px;
+  color: #555;
+}
+
+.price {
+  font-weight: bold;
+  color: #1565c0;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.rating {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff9800;
+  margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .turf-grid {
+    grid-template-columns: repeat(3, minmax(280px, 1fr)); /* 3 columns per row */
+  }
+}
+
+@media (max-width: 900px) {
+  .turf-grid {
+    grid-template-columns: repeat(2, minmax(280px, 1fr)); /* 2 columns per row */
+  }
+}
+
+@media (max-width: 600px) {
+  .turf-grid {
+    grid-template-columns: repeat(1, minmax(280px, 1fr)); /* 1 column per row */
+  }
+}
+
+/* Footer Styling */
 .footer {
-  background: #1e293b;
+  background: linear-gradient(90deg, #1e3a8a, #2563eb);
   color: white;
   text-align: center;
-  padding: 15px;
-  margin-top: auto; /* Automatically adjust */
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: auto;
 }

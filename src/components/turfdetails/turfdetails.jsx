@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./TurfDetails.css";
+import "./turfdetails.css";
 
 function TurfDetails() {
   const [turfData, setTurfData] = useState({
