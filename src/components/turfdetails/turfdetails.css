@@ -1,41 +1,39 @@
-/* Fullscreen Background */
-.turf-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+/* ---------- Combined Layout Background ---------- */
+.combined-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align items at the top */
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
     background: url("/truf.jpg") no-repeat center center/cover;
-}
-
-/* Glassmorphism Form */
-.turf-container form {
-    width: 90%;
-    max-width: 400px;
-    padding: 30px;
+  }
+  
+  /* ---------- Form Container (Glassmorphism Style) ---------- */
+  .turf-container {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    text-align: center;
+    padding: 30px;
     color: #ffffff;
-}
-
-/* Heading */
-.turf-container h2 {
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  /* Heading */
+  .turf-container h2 {
     font-size: 24px;
     margin-bottom: 10px;
     font-weight: bold;
     color: #fff;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Input & Select Fields */
-.turf-container input,
-.turf-container select {
+  }
+  
+  /* Input & Select Fields */
+  .turf-container input,
+  .turf-container select {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -43,52 +41,45 @@
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.2);
     color: white;
-    outline: none;
     font-size: 16px;
     box-sizing: border-box;
     cursor: pointer;
-}
-
-/* Placeholder & Default Text Styling */
-.turf-container input::placeholder,
-.turf-container select {
-    color: #d5f5e3; /* Light greenish color (matches inputs) */
-}
-
-/* Transparent Dropdown */
-.turf-container select {
+    outline: none;
+  }
+  
+  /* Placeholder & Default Text Styling */
+  .turf-container input::placeholder,
+  .turf-container select {
+    color: #d5f5e3;
+  }
+  
+  /* Transparent Dropdown (if used) */
+  .turf-container select {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-/* Dropdown List (When Open) */
-.turf-container select:focus {
+  }
+  
+  .turf-container select:focus {
     background: white;
     color: black;
     border: 1px solid #3498db;
-}
-
-/* Remove Number Input Spinner */
-.turf-container input[type="number"] {
+  }
+  
+  /* Remove Number Input Spinner */
+  .turf-container input[type="number"] {
     -moz-appearance: textfield;
-}
-
-.turf-container input[type="number"]::-webkit-inner-spin-button,
-.turf-container input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  .turf-container input[type="number"]::-webkit-inner-spin-button,
+  .turf-container input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-/* File Input Styling */
-.turf-container input[type="file"] {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-/* Submit Button */
-.turf-container button {
+  }
+  
+  /* Submit Button */
+  .turf-container button {
     width: 100%;
     padding: 12px;
     background: #3498db;
@@ -99,17 +90,99 @@
     border-radius: 6px;
     cursor: pointer;
     margin-top: 10px;
-    transition: 0.3s;
-}
-
-.turf-container button:hover {
+    transition: background 0.3s ease;
+  }
+  
+  .turf-container button:hover {
     background: #217dbb;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    .turf-container form {
-        width: 80%;
-        max-width: 320px;
+  }
+  
+  /* ---------- Selected Image Preview inside Form ---------- */
+  .selected-image-preview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .selected-image-preview img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  /* ---------- Button to Open Image Grid ---------- */
+  .open-grid-btn {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #555;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  /* ---------- Image Grid Container ---------- */
+  .image-grid-container {
+    width: 300px; /* Adjust as needed */
+    margin-left: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+  
+  /* ---------- Image Grid Styling ---------- */
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+  }
+  
+  .image-grid-item {
+    border: 2px solid transparent;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: border 0.3s ease;
+  }
+  
+  .image-grid-item.selected {
+    border-color: #3498db;
+  }
+  
+  .image-grid-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 5px;
+  }
+  
+  .image-grid-item span {
+    font-size: 14px;
+    color: #fff;
+    display: block;
+  }
+  
+  /* ---------- Responsive Adjustments ---------- */
+  @media (max-width: 600px) {
+    .combined-container {
+      flex-direction: column;
+      align-items: center;
     }
-}
+    .image-grid-container {
+      margin-left: 0;
+      margin-top: 20px;
+      width: 90%;
+    }
+    .turf-container {
+      max-width: 320px;
+    }
+  }
+  

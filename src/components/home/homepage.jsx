@@ -6,108 +6,68 @@ import "./HomePage.css";
 
 const HomePage = () => {
   const [turfs, setTurfs] = useState([]);
+  const [skip, setSkip] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Function to fetch turfs (currently using static data)
-  const fetchTurfs = async () => {
-    // Static data for now
-    const dummyTurfs = [
-      {
-        id: 1,
-        name: "Green Field Turf",
-        location: "Mumbai, India",
-        price: "₹500/hr",
-        rating: 4.5,
-        image: "/turf1.jpg",
-      },
-      {
-        id: 2,
-        name: "Elite Sports Arena",
-        location: "Pune, India",
-        price: "₹700/hr",
-        rating: 4.7,
-        image: "/turf5.jpg",
-      },
-      {
-        id: 3,
-        name: "Urban Playzone",
-        location: "Delhi, India",
-        price: "₹600/hr",
-        rating: 4.2,
-        image: "/turf6.jpg",
-      },
-      {
-        id: 4,
-        name: "Prime Turf Arena",
-        location: "Bangalore, India",
-        price: "₹650/hr",
-        rating: 4.6,
-        image: "/turf7.jpg",
-      },
-      {
-        id: 5,
-        name: "Victory Sports Turf",
-        location: "Hyderabad, India",
-        price: "₹550/hr",
-        rating: 4.4,
-        image: "/turf8.jpg",
-      },
-      {
-        id: 6,
-        name: "Champion's Ground",
-        location: "Chennai, India",
-        price: "₹480/hr",
-        rating: 4.3,
-        image: "/turf10.jpg",
-      },
-      {
-        id: 7,
-        name: "Pro Sports Arena",
-        location: "Jaipur, India",
-        price: "₹750/hr",
-        rating: 4.8,
-        image: "/turf11.jpg",
-      },
-      {
-        id: 8,
-        name: "Metro Turf",
-        location: "Kolkata, India",
-        price: "₹530/hr",
-        rating: 4.2,
-        image: "/turf12.jpg",
-      },
-      {
-        id: 9,
-        name: "Sports Ville",
-        location: "Ahmedabad, India",
-        price: "₹590/hr",
-        rating: 4.5,
-        image: "/turf13.jpg",
-      },
-      {
-        id: 10,
-        name: "Legends Arena",
-        location: "Lucknow, India",
-        price: "₹620/hr",
-        rating: 4.6,
-        image: "/turf14.jpg",
-      },
-    ];
-    setTurfs(dummyTurfs);
+  // Function to fetch turfs from the API, with optional search query
+  const fetchTurfs = async (skipCount = 0, query = "") => {
+    try {
+      let url = `http://localhost:3000/api/turfs?limit=12&skip=${skipCount}`;
+      if (query) {
+        url += `&query=${encodeURIComponent(query)}`;
+      }
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch turfs");
+      }
+      const data = await response.json();
+      
+      // If the data length is less than 12, assume there are no more turfs
+      if (data.length < 12) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
+      
+      // If skipCount is 0, replace the current list; otherwise, append new data
+      if (skipCount === 0) {
+        setTurfs(data);
+      } else {
+        setTurfs(prevTurfs => [...prevTurfs, ...data]);
+      }
+    } catch (error) {
+      console.error("Error fetching turfs:", error);
+    }
   };
 
+  // When the search query changes, reset skip and fetch filtered results
   useEffect(() => {
-    fetchTurfs();
-  }, []);
+    setSkip(0);
+    fetchTurfs(0, searchQuery);
+  }, [searchQuery]);
+
+  // Handler to load more turfs (maintaining the current search query)
+  const handleLoadMore = () => {
+    const newSkip = skip + 12;
+    setSkip(newSkip);
+    fetchTurfs(newSkip, searchQuery);
+  };
+
+  // Handler for search initiated from Header
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
 
   return (
     <div className="homepage-container">
-      <Header />
+      <Header onSearch={handleSearch} />
       <div className="content-wrapper">
         <Sidebar />
         <div className="main-content">
           <div className="turf-grid">
             {turfs.map((turf) => (
-              <div key={turf.id} className="turf-card">
+              <div key={turf._id || turf.id} className="turf-card">
                 <img src={turf.image} alt={turf.name} />
                 <h2>{turf.name}</h2>
                 <p>{turf.location}</p>
@@ -116,6 +76,9 @@ const HomePage = () => {
               </div>
             ))}
           </div>
+          {hasMore && (
+            <button onClick={handleLoadMore}>Load More</button>
+          )}
         </div>
       </div>
       <Footer />

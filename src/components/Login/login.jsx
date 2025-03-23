@@ -8,17 +8,44 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Dummy validation (Replace with actual authentication logic)
-    if (email && password) {
-      console.log("User Logged In:", { email, password });
-
-      // Redirect to home after successful login
-      navigate("/homepage");
-    } else {
+  const handleLogin = async () => {
+    // Validate that email and password are provided
+    if (!email || !password) {
       alert("Please enter valid email and password!");
+      return;
+    }
+  
+    try {
+      // Send POST request to the login endpoint
+      const response = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message}`);
+        return;
+      }
+  
+      // Get the token from the response
+      const data = await response.json();
+      console.log("User Logged In:", { email, password, token: data.token });
+  
+      // Optionally store the token (e.g., in localStorage)
+      localStorage.setItem("token", data.token);
+  
+      // Navigate to homepage after successful login
+      navigate("/homepage");
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong. Please try again later.");
     }
   };
+  
 
   return (
     <div className="login-overlay">

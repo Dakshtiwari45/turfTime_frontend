@@ -51,6 +51,7 @@ const Signup = () => {
     }
   
     const signupData = { ...formData };
+    console.log(signupData);
   
     try {
       const response = await fetch("http://localhost:3000/api/auth/signup", {
