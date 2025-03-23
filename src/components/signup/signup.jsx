@@ -42,20 +42,46 @@ const Signup = () => {
   };
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (emailError) {
       alert("Please fix the errors before submitting");
       return;
     }
+  
+    const signupData = { ...formData };
+  
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signupData),
+      });
 
-    // Redirect Logic
-    if (formData.isOwner) {
-      navigate("/turfdetails"); // Owner ko Turf Details Page pe bhejo
-    } else {
-      navigate("/login"); // Normal user ko signup pe bhejo
+      console.log("Response status:", response.status);
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message}`);
+        return;
+      }
+  
+      // Navigate based on role
+      if (formData.isOwner) {
+        navigate("/turfdetails");
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Something went wrong. Please try again later.");
     }
   };
+  
+  
 
   return (
     <div className="signup-overlay">
