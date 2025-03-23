@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import loginVideo from "/public/background.mp4"; // Make sure to add your video in this folder
+import loginVideo from "/public/video(1).mp4"; // Make sure to add your video in this folder
 
 function Login() {
   const navigate = useNavigate();

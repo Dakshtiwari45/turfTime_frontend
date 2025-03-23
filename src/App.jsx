@@ -11,6 +11,7 @@ import HomePage from "./components/home/homepage";
 import SplashScreen from "./components/SplashScreen/splashscreen"; 
 import OwnerDashboard from "./components/Owner/owner-dashboard";
 import Sidebar from "./components/Sidebar/sidebar";
+import About from "./components/about/about";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/owner-dashboard" element={<OwnerDashboard/>} />
         <Route path="/sidebar" element={<Sidebar />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </Router>
   </React.StrictMode>
