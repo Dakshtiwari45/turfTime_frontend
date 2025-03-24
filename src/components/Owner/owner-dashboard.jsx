@@ -1,22 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./owner-dashboard.css";
 
 function OwnerDashboard() {
-  const turfData = [
-    {
-      name: "Elite Turf Arena",
-      location: "Bhuwana, Udaipur",
-      price: "₹700/hour",
-      image: "/turf10.jpg", // Static image for now
-    },
-    {
-      name: "Greenfield Sports Hub",
-      location: "Fatehpura, Udaipur",
-      price: "₹800/hour",
-      image: "/turf12.jpg", // Static image for now
-    },
-  ];
+  const [turfs, setTurfs] = useState([]);
+  const ownerId = localStorage.getItem("ownerId"); // Make sure this is set after login/signup
+  const token = localStorage.getItem("token"); // If your API uses authentication
+
+  useEffect(() => {
+    if (ownerId) {
+      // Fetch turfs for the owner
+      fetch(`http://localhost:3000/api/turfs/owner/${ownerId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // If your endpoint is protected, include the token
+          "Authorization": `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.turfs) {
+            setTurfs(data.turfs);
+          }
+        })
+        .catch((err) => console.error("Error fetching turfs:", err));
+    }
+  }, [ownerId, token]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("ownerId");
+    localStorage.removeItem("userId");
+    navigate("/login");
+  };
 
   return (
     <div className="dashboard-container">
@@ -40,7 +57,7 @@ function OwnerDashboard() {
             <Link to="#">⚙️ Settings</Link>
           </li>
           <li>
-            <Link to="/login">🚪 Logout</Link>
+            <Link to="/login" onClick={handleLogout}>🚪 Logout</Link>
           </li>
         </ul>
       </aside>
@@ -51,15 +68,19 @@ function OwnerDashboard() {
         <p>Here’s a quick glance at your turfs.</p>
 
         <div className="turf-list">
-          {turfData.map((turf, index) => (
-            <div key={index} className="turf-card">
-              <img src={turf.image} alt={turf.name} className="turf-image" />
-              <h3>⚽ {turf.name}</h3>
-              <p>📍 {turf.location}</p>
-              <p>💵 {turf.price}</p>
-              <button className="edit-btn">Edit</button>
-            </div>
-          ))}
+          {turfs.length > 0 ? (
+            turfs.map((turf, index) => (
+              <div key={index} className="turf-card">
+                <img src={`/${turf.image}`} alt={turf.name} className="turf-image" />
+                <h3>⚽ {turf.name}</h3>
+                <p>📍 {turf.address}</p>
+                <p>💵 {turf.price}</p>
+                <button className="edit-btn">Edit</button>
+              </div>
+            ))
+          ) : (
+            <p>No turfs found. Please add one!</p>
+          )}
         </div>
       </main>
     </div>

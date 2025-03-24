@@ -68,9 +68,12 @@ const HomePage = () => {
           <div className="turf-grid">
             {turfs.map((turf) => (
               <div key={turf._id || turf.id} className="turf-card">
-                <img src={turf.image} alt={turf.name} />
+                <img
+                  src={`/${turf.image}`}
+                  alt={turf.name}
+                />
                 <h2>{turf.name}</h2>
-                <p>{turf.location}</p>
+                <p>{turf.address}</p>
                 <p className="price">{turf.price}</p>
                 <p className="rating">⭐ {turf.rating}</p>
               </div>

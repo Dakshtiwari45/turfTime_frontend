@@ -51,7 +51,7 @@ const Signup = () => {
     }
   
     const signupData = { ...formData };
-    console.log(signupData);
+    console.log("Signup Data:", signupData);
   
     try {
       const response = await fetch("http://localhost:3000/api/auth/signup", {
@@ -61,7 +61,7 @@ const Signup = () => {
         },
         body: JSON.stringify(signupData),
       });
-
+  
       console.log("Response status:", response.status);
   
       if (!response.ok) {
@@ -70,10 +70,16 @@ const Signup = () => {
         return;
       }
   
-      // Navigate based on role
-      if (formData.isOwner) {
+      // Parse the response
+      const data = await response.json();
+      console.log("Signup response:", data);
+  
+      // If the user is an owner, store their id in localStorage so it can be used later (e.g., for turf creation)
+      if (formData.isOwner && data.user && data.user.id) {
+        localStorage.setItem("ownerId", data.user.id);
         navigate("/turfdetails");
       } else {
+        // If not an owner, navigate to login or another appropriate page
         navigate("/login");
       }
     } catch (error) {
@@ -81,6 +87,7 @@ const Signup = () => {
       alert("Something went wrong. Please try again later.");
     }
   };
+  
   
   
 

@@ -9,14 +9,12 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    // Validate that email and password are provided
     if (!email || !password) {
       alert("Please enter valid email and password!");
       return;
     }
   
     try {
-      // Send POST request to the login endpoint
       const response = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
         headers: {
@@ -31,20 +29,24 @@ function Login() {
         return;
       }
   
-      // Get the token from the response
       const data = await response.json();
-      console.log("User Logged In:", { email, password, token: data.token });
+      console.log("User Logged In:", data);
   
-      // Optionally store the token (e.g., in localStorage)
+      // Store the token and user ID in localStorage
       localStorage.setItem("token", data.token);
+      if(data.isOwner===true)
+        localStorage.setItem("ownerId", data.id);  // Store user ID
+      else
+        localStorage.setItem("userId", data.id);
   
-      // Navigate to homepage after successful login
+      // Navigate to homepage after login
       navigate("/homepage");
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong. Please try again later.");
     }
   };
+  
   
 
   return (

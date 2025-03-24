@@ -11,7 +11,7 @@ function TurfDetails() {
     type: "",
     slots: "",
     amenities: "",
-    image: "", // Selected image filename
+    image: "", // Selected image filename (we'll send it as "images")
     owner: localStorage.getItem("ownerId") || "",
   });
 
@@ -47,27 +47,50 @@ function TurfDetails() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Turf Details Submitted:", turfData);
-
+  
+    const token = localStorage.getItem("token"); // Get token from local storage
+    if (!token) {
+      console.error("No token found! Please log in.");
+      return;
+    }
+  
     try {
-      const response = await fetch("http://localhost:3000/api/turfOwner/createTurf", {
+      const response = await fetch("http://localhost:3000/api/turfs/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`, // Attach JWT token
         },
         body: JSON.stringify(turfData),
       });
-
+  
       if (!response.ok) {
         throw new Error("Failed to create turf");
       }
-
+  
       const result = await response.json();
       console.log("Turf created successfully:", result);
+  
       // Optionally, clear the form or display a success message
+      setTurfData({
+        name: "",
+        address: "",
+        area: "",
+        contact: "",
+        price: "",
+        type: "",
+        slots: "",
+        amenities: "",
+        image: "",
+        owner: localStorage.getItem("ownerId") || "",
+      });
+  
+      alert("Turf created successfully!");
+  
     } catch (error) {
       console.error("Error submitting turf details:", error);
     }
-  };
+  };  
 
   return (
     <div className="combined-container">
