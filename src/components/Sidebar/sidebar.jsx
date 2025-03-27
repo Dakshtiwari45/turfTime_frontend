@@ -66,7 +66,7 @@ const Sidebar = ({ onFilterChange }) => {
         </select>
       </div>
 
-      {/* Turf Type (Updated) */}
+      {/* Turf Type */}
       <div className="filter-group">
         <label>Turf Type:</label>
         <select name="turfType" onChange={handleFilterChange}>
@@ -77,19 +77,20 @@ const Sidebar = ({ onFilterChange }) => {
         </select>
       </div>
 
-      {/* Amenities */}
+      {/* Amenities (Checkboxes) */}
       <div className="filter-group">
         <label>Amenities:</label>
-        <div>
-          <input type="checkbox" value="washroom" onChange={handleFilterChange} /> Washroom
-        </div>
-        <div>
-          <input type="checkbox" value="changing-room" onChange={handleFilterChange} /> Changing Room
-        </div>
-        <div>
-          <input type="checkbox" value="seating-area" onChange={handleFilterChange} /> Seating Area
+        <div className="checkbox-group">
+          <label>Washroom <input type="checkbox" value="washroom" onChange={handleFilterChange} /></label>
+          <label>Changing Room <input type="checkbox" value="changing-room" onChange={handleFilterChange} /></label>
+          <label>Seating Area <input type="checkbox" value="seating-area" onChange={handleFilterChange} /></label>
         </div>
       </div>
+
+      {/* Apply Button */}
+      <button className="apply-btn" onClick={() => window.location.reload()}>
+        Apply
+      </button>
     </div>
   );
 };
