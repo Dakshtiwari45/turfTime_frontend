@@ -8,18 +8,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url("/truf.jpg") no-repeat center center/cover;
+    background: url("/public/turf1.jpg") no-repeat center center fixed;
+    background-size: cover; /* Ensures full coverage without repeating */
 }
 
-/* Glassmorphism Form */
+
 .turf-container form {
     width: 90%;
     max-width: 400px;
     padding: 30px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.6); /* Darker semi-transparent background */
     backdrop-filter: blur(10px);
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     text-align: center;
     color: #ffffff;
 }
