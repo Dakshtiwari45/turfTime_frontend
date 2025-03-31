@@ -58,8 +58,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #1f1c2c, #232526);
-    
+    background: url(/public/turf16.jpg);
     
     
     background-size: cover;

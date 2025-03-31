@@ -9,9 +9,10 @@
   height: calc(100vh - 80px); /* Full height */
   overflow-y: auto;
   box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Sidebar ko footer ke upar rakha */
 }
 
-/* Heading Style */
+/* Sidebar Heading */
 .sidebar h2 {
   font-size: 22px;
   font-weight: bold;
@@ -21,7 +22,7 @@
   color: #ffcc00;
 }
 
-/* Filter Groups */
+/* Sidebar Filters */
 .filter-group {
   margin-bottom: 20px;
 }
@@ -46,28 +47,11 @@
   font-size: 14px;
 }
 
-/* Price Range Slider */
-.filter-group input[type="range"] {
-  height: 8px;
-  background: #ffcc00;
-  border-radius: 5px;
-  outline: none;
-}
-
-.filter-group input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  background: red;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 /* Checkbox Alignment */
 .checkbox-group {
   display: flex;
   flex-direction: column;
-  gap: 2px; /* Gap ko kam kar diya */
+  gap: 2px;
 }
 
 .checkbox-group label {
@@ -77,14 +61,13 @@
   color: #ffcc00;
   padding: 3px 5px;
   border-radius: 4px;
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 .checkbox-group input[type="checkbox"] {
   transform: scale(1.1);
-  margin-left: 8px; 
+  margin-left: 8px;
 }
-
 
 /* Apply Button */
 .apply-btn {
@@ -104,7 +87,7 @@
   background: #e6b800;
 }
 
-/* Responsive Design */
+/* Responsive Sidebar */
 @media (max-width: 768px) {
   .sidebar {
     width: 220px;

@@ -16,21 +16,19 @@
 
 /* Header Styling */
 .header {
-  padding: 25px;
-  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  padding: 20px;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
   color: white;
   text-align: center;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
   letter-spacing: 1px;
-  margin-bottom: 20px;
 }
 
 /* Content Wrapper */
 .content-wrapper {
   display: flex;
   flex: 1;
-  margin-top: 30px;
 }
 
 /* Sidebar Styling */
@@ -38,21 +36,21 @@
   width: 250px;
   background: #102a57;
   color: white;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  padding: 20px;
   position: fixed;
+  top: 60px; /* Adjusted to align below header */
   left: 0;
-  top: 0;
   bottom: 0;
+  height: calc(100vh - 60px); /* Full height minus header */
   box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  overflow-y: auto;
 }
 
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 50px;
+  padding: 40px;
   margin-left: 260px;
   display: flex;
   justify-content: center;
@@ -62,12 +60,12 @@
 /* Turf Grid */
 .turf-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(280px, 1fr)); /* Turf width badha di */
-  gap: 30px;
+  grid-template-columns: repeat(4, minmax(280px, 1fr));
+  gap: 40px; /* Increased gap for better spacing */
   justify-content: center;
-  max-width: 1500px;
+  max-width: 1400px;
   width: 100%;
-  margin: 20px auto;
+  margin: 30px auto; /* Added extra margin for breathing space */
 }
 
 /* Turf Card */
@@ -79,7 +77,7 @@
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
-  max-width: 350px; /* Width increase ki */
+  max-width: 350px;
 }
 
 .turf-card:hover {
@@ -89,7 +87,7 @@
 
 .turf-card img {
   width: 100%;
-  height: 220px; /* Slightly taller images */
+  height: 220px;
   object-fit: cover;
   border-radius: 12px;
 }
@@ -120,32 +118,58 @@
   margin-top: 5px;
 }
 
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .turf-grid {
-    grid-template-columns: repeat(3, minmax(280px, 1fr)); /* 3 columns per row */
-  }
-}
-
-@media (max-width: 900px) {
-  .turf-grid {
-    grid-template-columns: repeat(2, minmax(280px, 1fr)); /* 2 columns per row */
-  }
-}
-
-@media (max-width: 600px) {
-  .turf-grid {
-    grid-template-columns: repeat(1, minmax(280px, 1fr)); /* 1 column per row */
-  }
-}
-
-/* Footer Styling */
+/* Footer */
 .footer {
-  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
   color: white;
   text-align: center;
   padding: 20px;
   font-size: 18px;
   font-weight: bold;
   margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .turf-grid {
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    gap: 35px; /* Adjusted for medium screens */
+  }
+}
+
+@media (max-width: 900px) {
+  .turf-grid {
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    gap: 30px; /* Adjusted for tablets */
+  }
+  
+  .sidebar {
+    width: 200px;
+    padding: 15px;
+  }
+
+  .main-content {
+    margin-left: 210px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    top: 0;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .turf-grid {
+    grid-template-columns: repeat(1, minmax(280px, 1fr));
+    gap: 25px; /* Adjusted for mobile screens */
+  }
 }
