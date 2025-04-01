@@ -109,6 +109,14 @@
     margin-top: 15px;
     position: relative;
   }
+
+.footer-bottom p {
+    color: white;
+}
+
+.footer-left p {
+    color: white;
+}
   
   .footer-bottom::before, 
   .footer-bottom::after {
