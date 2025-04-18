@@ -1,93 +1,110 @@
 .sidebar {
-    width: 260px;
-    background: linear-gradient(180deg, #1e3a8a, #153061);
-    padding: 10px;
-    color: white;
-    position: fixed;
-    top: 800px; /* Header ke neeche adjust */
-    left: 0;
-    height: calc(100vh - 80px); /* Full height */
-    overflow-y: auto;
-    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+  width: 260px;
+  background: linear-gradient(180deg, #1e3a8a, #153061);
+  padding: 15px;
+  color: white;
+  position: fixed;
+  top: 80px; /* Header ke neeche adjust */
+  left: 0;
+  height: calc(100vh - 80px); /* Full height */
+  overflow-y: auto;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Sidebar ko footer ke upar rakha */
+}
+
+/* Sidebar Heading */
+.sidebar h2 {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ffcc00;
+}
+
+/* Sidebar Filters */
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group label {
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  color: #ffcc00;
+}
+
+.filter-group select,
+.filter-group input[type="range"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #ffffff;
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Checkbox Alignment */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checkbox-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffcc00;
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  transform: scale(1.1);
+  margin-left: 8px;
+}
+
+/* Apply Button */
+.apply-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ffcc00;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.apply-btn:hover {
+  background: #e6b800;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+    padding: 15px;
   }
-  
-  /* Heading Style */
+
   .sidebar h2 {
-    font-size: 22px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 25px;
-    color: #ffcc00;
+    font-size: 18px;
   }
-  
-  /* Filter Groups */
-  .filter-group {
-    margin-bottom: 25px;
-  }
-  
+
   .filter-group label {
-    font-size: 16px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
-    color: #ffcc00;
-  }
-  
-  .filter-group select,
-  .filter-group input[type="range"] {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: #ffffff;
-    color: black;
-    font-weight: bold;
     font-size: 14px;
   }
-  
-  /* Price Range Slider */
+
+  .filter-group select,
   .filter-group input[type="range"] {
-    height: 8px;
-    background: #ffcc00;
-    border-radius: 5px;
-    outline: none;
+    font-size: 12px;
+    padding: 8px;
   }
-  
-  .filter-group input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    background: red;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  /* Checkbox Styling */
-  .filter-group input[type="checkbox"] {
-    margin-right: 10px;
-    transform: scale(1.2);
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .sidebar {
-      width: 220px;
-      padding: 15px;
-    }
-  
-    .sidebar h2 {
-      font-size: 18px;
-    }
-  
-    .filter-group label {
-      font-size: 14px;
-    }
-  
-    .filter-group select,
-    .filter-group input[type="range"] {
-      font-size: 12px;
-      padding: 10px;
-    }
-  }
-    
+}

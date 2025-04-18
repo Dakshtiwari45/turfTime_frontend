@@ -21,7 +21,7 @@ const Footer = () => {
                 <div className="footer-right">
                     <h2>Important Links</h2>
                     <ul>
-                        <li><a href="/homepage">About ↺</a></li>
+                        <li><a href="/about">About ↺</a></li>
                         <li><a href="/homepage">Privacy Policy ↺</a></li>
                         <li><a href="/homepage">Terms & Conditions ↺</a></li>
                     </ul>
