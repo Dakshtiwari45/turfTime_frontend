@@ -71,7 +71,10 @@ function OwnerDashboard() {
           {turfs.length > 0 ? (
             turfs.map((turf, index) => (
               <div key={index} className="turf-card">
-                <img src={`/${turf.image}`} alt={turf.name} className="turf-image" />
+                <img
+                  src={`http://localhost:3000/api/turfs/image/${turf.image}`}
+                  alt={turf.name}
+                  className="turf-image"/>
                 <h3>⚽ {turf.name}</h3>
                 <p>📍 {turf.address}</p>
                 <p>💵 {turf.price}</p>

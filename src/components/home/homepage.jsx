@@ -70,9 +70,9 @@ const HomePage = () => {
             {turfs.map((turf) => (
               <div key={turf._id || turf.id} className="turf-card">
                 <img
-                  src={`/${turf.image}`}
+                  src={`http://localhost:3000/api/turfs/image/${turf.image}`}
                   alt={turf.name}
-                />
+                  className="turf-image"/>
                 <h2>{turf.name}</h2>
                 <p>{turf.address}</p>
                 <p className="price">{turf.price}</p>
