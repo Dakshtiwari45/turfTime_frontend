@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import loginVideo from "/public/video(1).mp4"; // Make sure to add your video in this folder
+import loginVideo from "/public/video(1).mp4"; // Background video
 
 function Login() {
   const navigate = useNavigate();
@@ -9,14 +9,13 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    // Dummy validation (Replace with actual authentication logic)
     if (email && password) {
+      alert("✅ Login Successful! Welcome to Turf Booking.");
       console.log("User Logged In:", { email, password });
 
-      // Redirect to home after successful login
-      navigate("/homepage");
+      navigate("/homepage"); // Redirect after login
     } else {
-      alert("Please enter valid email and password!");
+      alert("❌ Please enter a valid email and password!");
     }
   };
 
@@ -30,23 +29,23 @@ function Login() {
       <div className="login-container">
         <h2>Welcome to Turf Booking</h2>
         <p>Book your slot now!</p>
-        
+
         <input
           type="text"
           placeholder="Enter Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        
+
         <input
           type="password"
           placeholder="Enter Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        
+
         <button onClick={handleLogin}>Login</button>
-        
+
         <p className="register-link">
           New to Turf?{" "}
           <span onClick={() => navigate("/signup")} className="signup-link">
