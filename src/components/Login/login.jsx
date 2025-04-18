@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import loginVideo from "/public/video(1).mp4"; // Make sure to add your video in this folder
+import loginVideo from "/public/video(1).mp4"; // Background video
 
 function Login() {
   const navigate = useNavigate();
@@ -59,23 +59,23 @@ function Login() {
       <div className="login-container">
         <h2>Welcome to Turf Booking</h2>
         <p>Book your slot now!</p>
-        
+
         <input
           type="text"
           placeholder="Enter Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        
+
         <input
           type="password"
           placeholder="Enter Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        
+
         <button onClick={handleLogin}>Login</button>
-        
+
         <p className="register-link">
           New to Turf?{" "}
           <span onClick={() => navigate("/signup")} className="signup-link">

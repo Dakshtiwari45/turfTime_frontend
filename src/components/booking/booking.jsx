@@ -14,7 +14,7 @@ const dummyTurfs = [
   { id: 7, name: "Pro Sports Arena", location: "Jaipur", price: "₹1500/2hr", rating: 4.8, image: "/turf11.jpg" },
   { id: 8, name: "Metro Turf", location: "Kolkata", price: "₹1060/2hr", rating: 4.2, image: "/turf12.jpg" },
   { id: 9, name: "Sports Ville", location: "Ahmedabad", price: "₹1180/2hr", rating: 4.5, image: "/turf13.jpg" },
-  { id: 10, name: "Legends Arena", location: "Lucknow", price: "₹1240/2hr", rating: 4.6, image: "/turf14.jpg" },
+  { id: 10, name: "Legends Arena", location: "Lucknow", price: "₹1240/2hr", rating: 4.6, image: "/turf16.jpg" },
 ];
 
 const timeSlots = [
