@@ -11,66 +11,60 @@ function TurfDetails() {
     type: "",
     slots: "",
     amenities: "",
-    image: "", // Selected image filename (we'll send it as "images")
-    owner: localStorage.getItem("ownerId") || "",
+    images: [],
   });
-
-  // State to control the visibility of the image grid container
-  const [showImageGrid, setShowImageGrid] = useState(false);
-
-  // Array of image options (filenames in public folder)
-  const imageOptions = [
-    "truf.jpg",
-    "turf1.jpg",
-    "turf2.jpg",
-    "turf3.jpeg", // turf3 is a .jpeg file
-    "turf5.jpg",
-    "turf6.jpg",
-    "turf7.jpg",
-    "turf8.jpg",
-    "turf9.jpg",
-    "turf10.jpg",
-    "turf11.jpg",
-    "turf12.jpg",
-    "turf13.jpg",
-  ];
 
   const handleChange = (e) => {
     setTurfData({ ...turfData, [e.target.name]: e.target.value });
   };
 
-  const handleImageClick = (img) => {
-    setTurfData({ ...turfData, image: img });
-    setShowImageGrid(false);
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setTurfData({ ...turfData, images: files });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Turf Details Submitted:", turfData);
-  
+
     const token = localStorage.getItem("token"); // Get token from local storage
     if (!token) {
       console.error("No token found! Please log in.");
       return;
     }
-  
+
+    // Build FormData for multipart upload
+    const formData = new FormData();
+    formData.append("name", turfData.name);
+    formData.append("address", turfData.address);
+    formData.append("area", turfData.area);
+    formData.append("contact", turfData.contact);
+    formData.append("price", turfData.price);
+    formData.append("type", turfData.type);
+    formData.append("slots", turfData.slots);
+    formData.append("amenities", turfData.amenities);
+    formData.append("owner", localStorage.getItem("ownerId"));
+    formData.append('image', turfData.images[0]);
+
     try {
-      const response = await fetch("http://localhost:3000/api/turfs/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, // Attach JWT token
-        },
-        body: JSON.stringify(turfData),
-      });
-  
+      const response = await fetch(
+        "http://localhost:3000/api/turfs/create",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
       if (!response.ok) {
         throw new Error("Failed to create turf");
       }
-  
+
       const result = await response.json();
       console.log("Turf created successfully:", result);
-  
+
       // Optionally, clear the form or display a success message
       setTurfData({
         name: "",
@@ -81,141 +75,105 @@ function TurfDetails() {
         type: "",
         slots: "",
         amenities: "",
-        image: "",
-        owner: localStorage.getItem("ownerId") || "",
+        images: [],
       });
-  
+
       alert("Turf created successfully!");
-  
     } catch (error) {
       console.error("Error submitting turf details:", error);
     }
-  };  
+  };
 
   return (
-    <div className="combined-container">
-      {/* Form Container */}
-      <div className="turf-container">
-        <form onSubmit={handleSubmit}>
-          <h2>Enter Turf Details</h2>
+    <div className="turf-container">
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <h2>Enter Turf Details</h2>
 
-          <input
-            type="text"
-            name="name"
-            placeholder="Turf Name"
-            value={turfData.name}
-            onChange={handleChange}
-            required
-          />
+        <input
+          type="text"
+          name="name"
+          placeholder="Turf Name"
+          value={turfData.name}
+          onChange={handleChange}
+          required
+        />
 
-          <input
-            type="text"
-            name="address"
-            placeholder="Turf Address"
-            value={turfData.address}
-            onChange={handleChange}
-            required
-          />
+        <input
+          type="text"
+          name="address"
+          placeholder="Turf Address"
+          value={turfData.address}
+          onChange={handleChange}
+          required
+        />
 
-          <input
-            type="text"
-            name="area"
-            placeholder="Turf Area (in sq ft)"
-            value={turfData.area}
-            onChange={handleChange}
-            required
-          />
+        <input
+          type="text"
+          name="area"
+          placeholder="Turf Area (in sq ft)"
+          value={turfData.area}
+          onChange={handleChange}
+          required
+        />
 
-          <input
-            type="text"
-            name="contact"
-            placeholder="Contact Number"
-            value={turfData.contact}
-            onChange={handleChange}
-            required
-          />
+        <input
+          type="text"
+          name="contact"
+          placeholder="Contact Number"
+          value={turfData.contact}
+          onChange={handleChange}
+          required
+        />
 
-          <input
-            type="number"
-            name="price"
-            placeholder="Price per Hour (₹)"
-            value={turfData.price}
-            onChange={handleChange}
-            required
-            className="no-spinner"
-          />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price per Hour (₹)"
+          value={turfData.price}
+          onChange={handleChange}
+          required
+          className="no-spinner"
+        />
 
-          <select
-            name="type"
-            value={turfData.type}
-            onChange={handleChange}
-            required
-            className="custom-dropdown"
-          >
-            <option value="">Select Turf Type</option>
-            <option value="Grass">Grass</option>
-            <option value="Artificial Turf">Artificial Turf</option>
-            <option value="Clay">Clay</option>
-          </select>
+        <select
+          name="type"
+          value={turfData.type}
+          onChange={handleChange}
+          required
+          className="custom-dropdown"
+        >
+          <option value="">Select Turf Type</option>
+          <option value="Grass">Grass</option>
+          <option value="Artificial Turf">Artificial Turf</option>
+          <option value="Clay">Clay</option>
+        </select>
 
-          <input
-            type="text"
-            name="slots"
-            placeholder="Available Slots (e.g. 6 AM - 10 PM)"
-            value={turfData.slots}
-            onChange={handleChange}
-            required
-          />
+        <input
+          type="text"
+          name="slots"
+          placeholder="Available Slots (e.g. 6 AM - 10 PM)"
+          value={turfData.slots}
+          onChange={handleChange}
+          required
+        />
 
-          <input
-            type="text"
-            name="amenities"
-            placeholder="Amenities (e.g. Parking, Washroom)"
-            value={turfData.amenities}
-            onChange={handleChange}
-          />
+        <input
+          type="text"
+          name="amenities"
+          placeholder="Amenities (e.g. Parking, Washroom)"
+          value={turfData.amenities}
+          onChange={handleChange}
+        />
 
-          {/* Selected image preview */}
-          {turfData.image && (
-            <div className="selected-image-preview">
-              <img src={`/${turfData.image}`} alt={turfData.image} />
-              <span>{turfData.image}</span>
-            </div>
-          )}
+        <input
+          type="file"
+          name="image"
+          onChange={handleImageChange}
+          accept="image/*"
+        />
 
-          {/* Button to open image grid */}
-          <button
-            type="button"
-            className="open-grid-btn"
-            onClick={() => setShowImageGrid(true)}
-          >
-            Select Image
-          </button>
-
-          <button type="submit">Submit Turf Details</button>
-        </form>
-      </div>
-
-      {/* Image Grid Container */}
-      {showImageGrid && (
-        <div className="image-grid-container">
-          <h3>Select an Image</h3>
-          <div className="image-grid">
-            {imageOptions.map((img, index) => (
-              <div
-                key={index}
-                className={`image-grid-item ${
-                  turfData.image === img ? "selected" : ""
-                }`}
-                onClick={() => handleImageClick(img)}
-              >
-                <img src={`/${img}`} alt={img} />
-                <span>{img}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+        <button type="submit">Submit Turf Details</button>
+      </form>
     </div>
   );
 }
