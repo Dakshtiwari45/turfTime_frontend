@@ -70,23 +70,27 @@ const Signup = () => {
         return;
       }
   
-      // Parse the response
       const data = await response.json();
       console.log("Signup response:", data);
   
-      // If the user is an owner, store their id in localStorage so it can be used later (e.g., for turf creation)
+      // Clear previous session data
+      localStorage.removeItem("token");
+      localStorage.removeItem("ownerId");
+      localStorage.removeItem("userId");
+  
+      // Save new session data
       if (formData.isOwner && data.user && data.user.id) {
         localStorage.setItem("ownerId", data.user.id);
         navigate("/turfdetails");
       } else {
-        // If not an owner, navigate to login or another appropriate page
+        localStorage.setItem("userId", data.user.id);
         navigate("/login");
       }
     } catch (error) {
       console.error("Signup error:", error);
       alert("Something went wrong. Please try again later.");
     }
-  };
+  };  
   
   
   

@@ -12,24 +12,31 @@ const Sidebar = ({ onFilterChange }) => {
 
   const handleFilterChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === "checkbox") {
-      setFilters((prev) => ({
+
+    setFilters((prev) => {
+      const newFilters = {
         ...prev,
-        amenities: checked
+        [name]: type === "range" ? parseInt(value) : value,
+      };
+
+      if (type === "checkbox") {
+        newFilters.amenities = checked
           ? [...prev.amenities, value]
-          : prev.amenities.filter((item) => item !== value),
-      }));
-    } else {
-      setFilters((prev) => ({ ...prev, [name]: value }));
-    }
-    onFilterChange({ ...filters, [name]: type === "range" ? parseInt(value) : value });
+          : prev.amenities.filter((item) => item !== value);
+      }
+
+      return newFilters;
+    });
+  };
+
+  const handleApply = () => {
+    onFilterChange(filters); // pass the full filter state back
   };
 
   return (
     <div className="sidebar">
       <h2>Filters</h2>
       
-      {/* Price Range Slider */}
       <div className="filter-group">
         <label>Price Range: ₹{filters.price}</label>
         <input 
@@ -43,10 +50,9 @@ const Sidebar = ({ onFilterChange }) => {
         />
       </div>
 
-      {/* Ratings */}
       <div className="filter-group">
         <label>Ratings:</label>
-        <select name="rating" onChange={handleFilterChange}>
+        <select name="rating" value={filters.rating} onChange={handleFilterChange}>
           <option value="">All</option>
           <option value="1">1⭐ & up</option>
           <option value="2">2⭐ & up</option>
@@ -56,20 +62,18 @@ const Sidebar = ({ onFilterChange }) => {
         </select>
       </div>
 
-      {/* Parking */}
       <div className="filter-group">
         <label>Parking:</label>
-        <select name="parking" onChange={handleFilterChange}>
+        <select name="parking" value={filters.parking} onChange={handleFilterChange}>
           <option value="">All</option>
           <option value="yes">Available</option>
           <option value="no">Not Available</option>
         </select>
       </div>
 
-      {/* Turf Type */}
       <div className="filter-group">
         <label>Turf Type:</label>
-        <select name="turfType" onChange={handleFilterChange}>
+        <select name="turfType" value={filters.turfType} onChange={handleFilterChange}>
           <option value="">All</option>
           <option value="artificial">Artificial</option>
           <option value="clay">Clay</option>
@@ -77,18 +81,23 @@ const Sidebar = ({ onFilterChange }) => {
         </select>
       </div>
 
-      {/* Amenities (Checkboxes) */}
       <div className="filter-group">
         <label>Amenities:</label>
         <div className="checkbox-group">
-          <label>Washroom <input type="checkbox" value="washroom" onChange={handleFilterChange} /></label>
-          <label>Changing Room <input type="checkbox" value="changing-room" onChange={handleFilterChange} /></label>
-          <label>Seating Area <input type="checkbox" value="seating-area" onChange={handleFilterChange} /></label>
+          <label>
+            Washroom <input type="checkbox" value="washroom" onChange={handleFilterChange} checked={filters.amenities.includes("washroom")} />
+          </label>
+          <label>
+            Changing Room <input type="checkbox" value="changing-room" onChange={handleFilterChange} checked={filters.amenities.includes("changing-room")} />
+          </label>
+          <label>
+            Seating Area <input type="checkbox" value="seating-area" onChange={handleFilterChange} checked={filters.amenities.includes("seating-area")} />
+          </label>
         </div>
       </div>
 
-      {/* Apply Button */}
-      <button className="apply-btn" onClick={() => window.location.reload()}>
+      {/* 🔍 Trigger search here */}
+      <button className="apply-btn" onClick={handleApply}>
         Apply
       </button>
     </div>

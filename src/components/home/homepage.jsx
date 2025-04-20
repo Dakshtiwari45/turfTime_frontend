@@ -6,6 +6,7 @@ import Sidebar from "../Sidebar/sidebar";
 import "./HomePage.css";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [turfs, setTurfs] = useState([]);
   const [skip, setSkip] = useState(0);
   const [hasMore, setHasMore] = useState(true);
@@ -68,7 +69,7 @@ const HomePage = () => {
         <div className="main-content">
           <div className="turf-grid">
             {turfs.map((turf) => (
-              <div key={turf._id || turf.id} className="turf-card">
+              <div key={turf._id || turf.id} className="turf-card" onClick={() => navigate(`/booking/${turf._id || turf.id}`)}>
                 <img
                   src={`http://localhost:3000/api/turfs/image/${turf.image}`}
                   alt={turf.name}

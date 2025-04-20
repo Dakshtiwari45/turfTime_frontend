@@ -32,12 +32,18 @@ function Login() {
       const data = await response.json();
       console.log("User Logged In:", data);
   
-      // Store the token and user ID in localStorage
+      // Remove any previous userId, ownerId, or token from localStorage
+      localStorage.removeItem("token");
+      localStorage.removeItem("ownerId");
+      localStorage.removeItem("userId");
+  
+      // Store the new token and user ID in localStorage
       localStorage.setItem("token", data.token);
-      if(data.isOwner===true)
-        localStorage.setItem("ownerId", data.id);  // Store user ID
-      else
-        localStorage.setItem("userId", data.id);
+      if (data.isOwner === true) {
+        localStorage.setItem("ownerId", data.id);  // Store owner ID
+      } else {
+        localStorage.setItem("userId", data.id);  // Store user ID
+      }
   
       // Navigate to homepage after login
       navigate("/homepage");
@@ -45,7 +51,7 @@ function Login() {
       console.error("Login error:", error);
       alert("Something went wrong. Please try again later.");
     }
-  };
+  };  
   
   
 
