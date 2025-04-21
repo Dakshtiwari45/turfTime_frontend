@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import loginVideo from "/public/video(1).mp4"; // Background video
+import loginVideo from "/public/video(1).mp4";
 
 function Login() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Login() {
       alert("Please enter valid email and password!");
       return;
     }
-  
+
     try {
       const response = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
@@ -22,42 +22,41 @@ function Login() {
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(`Error: ${errorData.message}`);
+        alert(`Error: ${data.message}`);
         return;
       }
-  
-      const data = await response.json();
+
       console.log("User Logged In:", data);
-  
-      // Remove any previous userId, ownerId, or token from localStorage
-      localStorage.removeItem("token");
-      localStorage.removeItem("ownerId");
-      localStorage.removeItem("userId");
-  
-      // Store the new token and user ID in localStorage
+
+      // Clear previous session
+      localStorage.clear();
+
+      // Store token
       localStorage.setItem("token", data.token);
-      if (data.isOwner === true) {
-        localStorage.setItem("ownerId", data.id);  // Store owner ID
+
+      // Redirect based on isOwner
+      if (data.isOwner && data.id) {
+        localStorage.setItem("ownerId", data.id);
+        navigate("/owner-dashboard");
+      } else if (data.id) {
+        localStorage.setItem("userId", data.id);
+        navigate("/homepage");
       } else {
-        localStorage.setItem("userId", data.id);  // Store user ID
+        navigate("/login");
       }
-  
-      // Navigate to homepage after login
-      navigate("/homepage");
+
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong. Please try again later.");
     }
-  };  
-  
-  
+  };
 
   return (
     <div className="login-overlay">
-      {/* Background Video */}
       <video autoPlay loop muted className="background-video">
         <source src={loginVideo} type="video/mp4" />
       </video>

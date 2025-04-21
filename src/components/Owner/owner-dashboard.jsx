@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./owner-dashboard.css";
-
+import Header from "../header/header";
 function OwnerDashboard() {
   const [turfs, setTurfs] = useState([]);
   const ownerId = localStorage.getItem("ownerId"); // Make sure this is set after login/signup
@@ -38,6 +38,7 @@ function OwnerDashboard() {
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
+      <Header/>
       <aside className="sidebar">
         <h2>Owner Dashboard</h2>
         <ul>
@@ -78,7 +79,7 @@ function OwnerDashboard() {
                 <h3>⚽ {turf.name}</h3>
                 <p>📍 {turf.address}</p>
                 <p>💵 {turf.price}</p>
-                <button className="edit-btn">Edit</button>
+                <button onClick={() => navigate("/booking")} className="edit-btn">Booking's</button>
               </div>
             ))
           ) : (

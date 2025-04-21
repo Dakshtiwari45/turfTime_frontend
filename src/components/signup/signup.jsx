@@ -81,7 +81,7 @@ const Signup = () => {
       // Save new session data
       if (formData.isOwner && data.user && data.user.id) {
         localStorage.setItem("ownerId", data.user.id);
-        navigate("/turfdetails");
+        navigate("/login");
       } else {
         localStorage.setItem("userId", data.user.id);
         navigate("/login");
