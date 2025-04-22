@@ -1,0 +1,190 @@
+/* Page layout */
+.history-page {
+    padding: 100px 20px 40px;
+    background: #f8f9fa;
+    min-height: calc(100vh - 160px); /* account for header/footer */
+}
+
+.history-page h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #333;
+}
+
+/* History cards */
+.history-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px; /* To ensure there's space between cards and heading */
+}
+
+.history-card {
+    background: #fff;
+    border-radius: 10px;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+.history-card:hover {
+    transform: translateY(-5px); /* Slight hover effect for cards */
+}
+
+.history-card h3 {
+    margin-top: 0;
+}
+
+.review-button {
+    margin-top: 12px;
+    padding: 8px 16px;
+    background: #1a2a6c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.review-button:hover {
+    background: #fdbb2d;
+    color: #000;
+}
+
+/* Modal backdrop */
+.review-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal content */
+.modal-content {
+    background: #fff;
+    position: relative;
+    width: 400px;
+    max-width: 90%;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Rating stars */
+.rating-input {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.rating-input label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.stars {
+    display: inline-block;
+}
+
+.star {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+    margin-right: 4px;
+}
+
+.star.selected,
+.star:hover,
+.star:hover ~ .star {
+    color: #fdbb2d;
+}
+
+/* Review textarea */
+.modal-content textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 14px;
+}
+
+/* Submit button */
+.submit-review-btn {
+    padding: 10px 20px;
+    background: #1a2a6c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.submit-review-btn:hover {
+    background: #fdbb2d;
+    color: #000;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .history-card {
+        width: 45%; /* Allow two cards per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .history-card {
+        width: 100%; /* One card per row on small screens */
+    }
+
+    .review-button {
+        font-size: 14px; /* Slightly smaller button on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 20px;
+    }
+
+    .rating-input label, .star {
+        font-size: 20px; /* Smaller font size for mobile */
+    }
+
+    .star {
+        margin-right: 2px; /* Reduce spacing between stars */
+    }
+
+    .review-button {
+        font-size: 14px;
+        padding: 6px 14px;
+    }
+
+    .submit-review-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}

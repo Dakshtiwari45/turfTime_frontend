@@ -58,7 +58,18 @@ const Header = ({ onSearch }) => {
       <nav className="nav-links">
         <a href="/" className="nav-item">Home</a>
         <a href="/about" className="nav-item">About</a>
-        {isOwner && <a href="/owner-dashboard" className="nav-item">Owner-Dashboard</a>}
+        {isOwner && (
+          <a href="/owner-dashboard" className="nav-item">
+            Owner-Dashboard
+          </a>
+        )}
+
+        {/* History link shown only when logged in */}
+        {isLoggedIn && (
+          <a href="/history" className="nav-item">
+            History
+          </a>
+        )}
 
         {!isLoggedIn ? (
           <>
@@ -66,7 +77,9 @@ const Header = ({ onSearch }) => {
             <a href="/signup" className="nav-item signup-btn">Signup</a>
           </>
         ) : (
-          <button onClick={handleLogout} className="nav-item logout-btn">Logout</button>
+          <button onClick={handleLogout} className="nav-item logout-btn">
+            Logout
+          </button>
         )}
       </nav>
     </header>

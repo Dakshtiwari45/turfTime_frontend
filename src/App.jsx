@@ -13,7 +13,7 @@ import OwnerDashboard from "./components/Owner/owner-dashboard";
 import Sidebar from "./components/Sidebar/sidebar";
 import About from "./components/about/about";
 import Booking from "./components/booking/booking";
-
+import History from "./components/history/history";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -28,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/about" element={<About />} />
         <Route path="/booking/:id" element={<Booking/>}/>
+        <Route path="/history" element={<History/>}/>
       </Routes>
     </Router>
   </React.StrictMode>
