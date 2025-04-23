@@ -29,24 +29,31 @@ const Sidebar = ({ onFilterChange }) => {
     });
   };
 
-  const handleApply = () => {
-    onFilterChange(filters); // pass the full filter state back
+  const handleApply = async () => {
+    try {
+      const queryParams = new URLSearchParams(filters).toString();
+      const response = await fetch(`http://localhost:3000/api/turfs/filter?${queryParams}`);
+      const data = await response.json();
+      onFilterChange(data); // Pass the filtered turfs back to the parent component
+    } catch (err) {
+      console.error("Error fetching filtered turfs:", err);
+    }
   };
 
   return (
     <div className="sidebar">
       <h2>Filters</h2>
-      
+
       <div className="filter-group">
         <label>Price Range: ₹{filters.price}</label>
-        <input 
-          type="range" 
-          name="price" 
-          min="500" 
-          max="5000" 
+        <input
+          type="range"
+          name="price"
+          min="500"
+          max="5000"
           step="500"
-          value={filters.price} 
-          onChange={handleFilterChange} 
+          value={filters.price}
+          onChange={handleFilterChange}
         />
       </div>
 
@@ -75,9 +82,9 @@ const Sidebar = ({ onFilterChange }) => {
         <label>Turf Type:</label>
         <select name="turfType" value={filters.turfType} onChange={handleFilterChange}>
           <option value="">All</option>
-          <option value="artificial">Artificial</option>
-          <option value="clay">Clay</option>
-          <option value="grass">Grass</option>
+          <option value="Artificial Turf">Artificial</option>
+          <option value="Clay">Clay</option>
+          <option value="Grass">Grass</option>
         </select>
       </div>
 
@@ -85,13 +92,31 @@ const Sidebar = ({ onFilterChange }) => {
         <label>Amenities:</label>
         <div className="checkbox-group">
           <label>
-            Washroom <input type="checkbox" value="washroom" onChange={handleFilterChange} checked={filters.amenities.includes("washroom")} />
+            Washroom{" "}
+            <input
+              type="checkbox"
+              value="washroom"
+              onChange={handleFilterChange}
+              checked={filters.amenities.includes("washroom")}
+            />
           </label>
           <label>
-            Changing Room <input type="checkbox" value="changing-room" onChange={handleFilterChange} checked={filters.amenities.includes("changing-room")} />
+            Changing Room{" "}
+            <input
+              type="checkbox"
+              value="changing-room"
+              onChange={handleFilterChange}
+              checked={filters.amenities.includes("changing-room")}
+            />
           </label>
           <label>
-            Seating Area <input type="checkbox" value="seating-area" onChange={handleFilterChange} checked={filters.amenities.includes("seating-area")} />
+            Seating Area{" "}
+            <input
+              type="checkbox"
+              value="seating-area"
+              onChange={handleFilterChange}
+              checked={filters.amenities.includes("seating-area")}
+            />
           </label>
         </div>
       </div>

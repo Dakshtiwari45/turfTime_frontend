@@ -24,19 +24,19 @@ const HomePage = () => {
         throw new Error("Failed to fetch turfs");
       }
       const data = await response.json();
-      
+
       // If the data length is less than 12, assume there are no more turfs
       if (data.length < 12) {
         setHasMore(false);
       } else {
         setHasMore(true);
       }
-      
+
       // If skipCount is 0, replace the current list; otherwise, append new data
       if (skipCount === 0) {
         setTurfs(data);
       } else {
-        setTurfs(prevTurfs => [...prevTurfs, ...data]);
+        setTurfs((prevTurfs) => [...prevTurfs, ...data]);
       }
     } catch (error) {
       console.error("Error fetching turfs:", error);
@@ -61,19 +61,30 @@ const HomePage = () => {
     setSearchQuery(query);
   };
 
+  // Handler to update turfs when filters are applied
+  const handleFilterChange = (filteredTurfs) => {
+    setTurfs(filteredTurfs);
+    setHasMore(false); // Disable "Load More" since filtered results are final
+  };
+
   return (
     <div className="homepage-container">
       <Header onSearch={handleSearch} />
       <div className="content-wrapper">
-        <Sidebar />
+        <Sidebar onFilterChange={handleFilterChange} />
         <div className="main-content">
           <div className="turf-grid">
             {turfs.map((turf) => (
-              <div key={turf._id || turf.id} className="turf-card" onClick={() => navigate(`/booking/${turf._id || turf.id}`)}>
+              <div
+                key={turf._id || turf.id}
+                className="turf-card"
+                onClick={() => navigate(`/booking/${turf._id || turf.id}`)}
+              >
                 <img
                   src={`http://localhost:3000/api/turfs/image/${turf.image}`}
                   alt={turf.name}
-                  className="turf-image"/>
+                  className="turf-image"
+                />
                 <h2>{turf.name}</h2>
                 <p>{turf.address}</p>
                 <p className="price">{turf.price}</p>
@@ -81,9 +92,7 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-          {hasMore && (
-            <button onClick={handleLoadMore}>Load More</button>
-          )}
+          {hasMore && <button onClick={handleLoadMore}>Load More</button>}
         </div>
       </div>
       <Footer />

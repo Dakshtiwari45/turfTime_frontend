@@ -107,7 +107,7 @@ const Booking = () => {
         <h1>{turf.name}</h1>
         <p>📍 {turf.address}</p>
         <p>💰 {turf.price}</p>
-        <p>⭐ {turf.rating} Rating</p>
+        <p>⭐ {turf.rating}</p>
 
         <div className="booking-section">
           <h2>Book Your Slot</h2>
