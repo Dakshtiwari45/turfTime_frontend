@@ -1,0 +1,51 @@
+.owner-bookings-page {
+    padding: 100px 20px 40px;
+    background: #f9f9f9;
+    min-height: calc(100vh - 160px);
+    text-align: center;
+  }
+  
+  .owner-bookings-page h2 {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 30px;
+  }
+  
+  .booking-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .booking-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: left;
+  }
+  
+  .booking-card h3 {
+    margin: 0 0 10px;
+    color: #1a2a6c;
+  }
+  
+  .booking-card p {
+    margin: 6px 0;
+    font-size: 15px;
+    color: #444;
+  }
+  
+  @media (max-width: 768px) {
+    .booking-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .booking-card {
+      width: 90%;
+    }
+  }
+  

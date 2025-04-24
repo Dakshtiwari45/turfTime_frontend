@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./owner-dashboard.css";
 import Header from "../header/header";
+
 function OwnerDashboard() {
   const [turfs, setTurfs] = useState([]);
-  const ownerId = localStorage.getItem("ownerId"); // Make sure this is set after login/signup
-  const token = localStorage.getItem("token"); // If your API uses authentication
+  const ownerId = localStorage.getItem("ownerId");
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (ownerId) {
-      // Fetch turfs for the owner
       fetch(`http://localhost:3000/api/turfs/owner/${ownerId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // If your endpoint is protected, include the token
           "Authorization": `Bearer ${token}`,
         },
       })
@@ -29,33 +29,28 @@ function OwnerDashboard() {
   }, [ownerId, token]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("ownerId");
-    localStorage.removeItem("userId");
-    navigate("/login");
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+    if (confirmLogout) {
+      localStorage.clear();
+      alert("Logged out successfully!");
+      navigate("/login");
+    }
   };
 
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
-      <Header/>
+      <Header />
       <aside className="sidebar">
         <h2>Owner Dashboard</h2>
         <ul>
           <li>
-            <Link to="/homepage">🏠 Home</Link>
+            <Link to="/owner-dashboard">🏠 Dashboard</Link>
           </li>
           <li>
             <Link to="/turfdetails">➕ Add Turf</Link>
           </li>
           <li>
-            <Link to="#">📅 Manage Bookings</Link>
-          </li>
-          <li>
-            <Link to="#">💰 Earnings</Link>
-          </li>
-          <li>
-            <Link to="#">⚙️ Settings</Link>
+            <Link to="/managebooking">📅 Manage Bookings</Link>
           </li>
           <li>
             <Link to="/login" onClick={handleLogout}>🚪 Logout</Link>
@@ -63,7 +58,6 @@ function OwnerDashboard() {
         </ul>
       </aside>
 
-      {/* Main Content */}
       <main className="dashboard-content">
         <h1>Welcome, Owner!</h1>
         <p>Here’s a quick glance at your turfs.</p>
@@ -75,11 +69,20 @@ function OwnerDashboard() {
                 <img
                   src={`http://localhost:3000/api/turfs/image/${turf.image}`}
                   alt={turf.name}
-                  className="turf-image"/>
+                  className="turf-image"
+                />
                 <h3>⚽ {turf.name}</h3>
                 <p>📍 {turf.address}</p>
                 <p>💵 {turf.price}</p>
-                <button onClick={() => navigate("/booking")} className="edit-btn">Booking's</button>
+                <button className="booking-button">
+                  <Link to="/ownerbooking">Bookings</Link>
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(turf._id)}
+                >
+                  🗑️ Delete
+                </button>
               </div>
             ))
           ) : (

@@ -81,7 +81,7 @@
     position: absolute;
     right: 12px;
     cursor: pointer;
-    color: white;
+    color: #fff;
     font-size: 18px;
 }
 
@@ -93,6 +93,9 @@
     gap: 8px;
     font-size: 14px;
     margin: 15px 0;
+}
+.checkbox-container label{
+    color: #fff;
 }
 
 /* Checkbox Input */

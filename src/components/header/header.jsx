@@ -19,20 +19,25 @@ const Header = ({ onSearch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchQuery);
+    if (onSearch) {
+      onSearch(searchQuery);
+    }
   };
 
   const handleLogout = () => {
-    localStorage.clear();
-    setIsLoggedIn(false);
-    setIsOwner(false);
-    alert("Logged out successfully!");
-    navigate("/login");
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+    if (confirmLogout) {
+      localStorage.clear();
+      setIsLoggedIn(false);
+      setIsOwner(false);
+      alert("Logged out successfully!");
+      navigate("/login");
+    }
   };
 
   return (
     <header className="header">
-      {/* Logo and Tagline */}
+      {/* Logo Section */}
       <div className="logo-container">
         <img src={logo} alt="Turf Time Logo" className="header-logo" />
         <span className="tagline">Your Game, Your Turf!</span>
@@ -43,8 +48,8 @@ const Header = ({ onSearch }) => {
         <form onSubmit={handleSubmit} className="search-form">
           <input
             type="text"
-            placeholder="Search by turf name or location"
             className="search-bar"
+            placeholder="Search by turf name or location"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -58,17 +63,13 @@ const Header = ({ onSearch }) => {
       <nav className="nav-links">
         <a href="/" className="nav-item">Home</a>
         <a href="/about" className="nav-item">About</a>
+
         {isOwner && (
-          <a href="/owner-dashboard" className="nav-item">
-            Owner-Dashboard
-          </a>
+          <a href="/owner-dashboard" className="nav-item">Owner Dashboard</a>
         )}
 
-        {/* History link shown only when logged in */}
         {isLoggedIn && (
-          <a href="/history" className="nav-item">
-            History
-          </a>
+          <a href="/history" className="nav-item">History</a>
         )}
 
         {!isLoggedIn ? (
@@ -77,9 +78,13 @@ const Header = ({ onSearch }) => {
             <a href="/signup" className="nav-item signup-btn">Signup</a>
           </>
         ) : (
-          <button onClick={handleLogout} className="nav-item logout-btn">
+          <span
+            className="nav-item logout-btn"
+            onClick={handleLogout}
+            style={{ cursor: "pointer" }}
+          >
             Logout
-          </button>
+          </span>
         )}
       </nav>
     </header>
@@ -87,3 +92,4 @@ const Header = ({ onSearch }) => {
 };
 
 export default Header;
+

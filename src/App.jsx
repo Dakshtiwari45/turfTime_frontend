@@ -14,6 +14,8 @@ import Sidebar from "./components/Sidebar/sidebar";
 import About from "./components/about/about";
 import Booking from "./components/booking/booking";
 import History from "./components/history/history";
+import OwnerBookings from "./components/ownerbooking/ownerbooking";
+import ManageBookings from "./components/managebooking/managebooking";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -29,6 +31,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/about" element={<About />} />
         <Route path="/booking/:id" element={<Booking/>}/>
         <Route path="/history" element={<History/>}/>
+        <Route path="/ownerbooking" element={<OwnerBookings/>} />
+        <Route path="/managebooking" element={<ManageBookings/>} />
       </Routes>
     </Router>
   </React.StrictMode>

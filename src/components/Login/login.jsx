@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./login.css";
 import loginVideo from "/public/video(1).mp4";
 
@@ -7,6 +8,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -30,15 +32,9 @@ function Login() {
         return;
       }
 
-      console.log("User Logged In:", data);
-
-      // Clear previous session
       localStorage.clear();
-
-      // Store token
       localStorage.setItem("token", data.token);
 
-      // Redirect based on isOwner
       if (data.isOwner && data.id) {
         localStorage.setItem("ownerId", data.id);
         navigate("/owner-dashboard");
@@ -48,7 +44,6 @@ function Login() {
       } else {
         navigate("/login");
       }
-
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong. Please try again later.");
@@ -72,19 +67,27 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="password-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span
+            className="eye-icon"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
 
         <button onClick={handleLogin}>Login</button>
 
         <p className="register-link">
           New to Turf?{" "}
           <span onClick={() => navigate("/signup")} className="signup-link">
-            Sign up
+            Register here
           </span>
         </p>
       </div>
