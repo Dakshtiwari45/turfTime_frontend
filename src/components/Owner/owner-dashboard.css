@@ -16,13 +16,16 @@
 /* Sidebar Styling */
 .sidebar {
   width: 250px;
-  background: #1e3a8a; /* Dark Blue */
+  background: #1e3a8a;
   color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   margin-top: 10px;
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 
 .sidebar h2 {
@@ -59,8 +62,9 @@
 
 /* Main Content */
 .dashboard-content {
+  margin-left: 250px; /* Same as sidebar width */
   flex: 1;
-  padding: 40px;
+  padding: 40px 30px;
   text-align: center;
   margin-top: 50px;
 }
@@ -82,16 +86,17 @@
 
 /* Turf Cards */
 .turf-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  width: 100%;
 }
 
 .turf-card {
   background: white;
   padding: 20px;
-  width: 300px;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
@@ -118,7 +123,7 @@
   margin-bottom: 10px;
 }
 
-/* Edit Button */
+/* Buttons */
 .edit-btn {
   background: #2563eb;
   color: white;
@@ -133,10 +138,8 @@
   background: #1e3a8a;
 }
 
-/* Bookings Button */
-/* Booking Button */
-.booking-button {
-  background: #10b981; /* Green */
+.turf-card button {
+  background: #10b981;
   color: white;
   padding: 8px 15px;
   border: none;
@@ -148,7 +151,7 @@
   text-align: center;
 }
 
-.booking-button a {
+.turf-card button a {
   text-decoration: none;
   color: white;
   display: inline-block;
@@ -156,13 +159,13 @@
   height: 100%;
 }
 
-.booking-button:hover {
+.turf-card button:hover {
   background: #059669;
 }
 
 /* Delete Button */
 .delete-button {
-  background: #ef4444; /* Red */
+  background-color: #ef4444; /* Tailwind red-500 */
   color: white;
   padding: 8px 15px;
   border: none;
@@ -175,7 +178,7 @@
 }
 
 .delete-button:hover {
-  background: #dc2626;
+  background-color: #dc2626; /* Tailwind red-600 */
 }
 
 /* Responsive Design */
@@ -185,9 +188,9 @@
   }
 
   .sidebar {
+    position: relative;
     width: 100%;
     height: auto;
-    padding: 10px;
   }
 
   .sidebar ul {
@@ -196,15 +199,17 @@
   }
 
   .dashboard-content {
+    margin-left: 0;
     padding: 20px;
   }
 
   .turf-list {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .turf-card {
     width: 90%;
+    margin: 0 auto;
   }
 }

@@ -8,11 +8,11 @@ const Footer = () => {
                 <div className="footer-left">
                     <h2>Turf Time</h2>
                     <p>
-                        Embark on a sporting journey across cities with our diverse turf selection.
-                        Find your ideal playing ground and book your game today!
+                    "Discover your ideal turf.<br></br>
+                    Book your game in a few clicks!"
                     </p>
                     <div className="contact">
-                        <p><strong>Contact us</strong></p>
+                        <h3><strong>Contact us</strong></h3>
                         <a href="tel:+918279214199">+91 8279214199</a> |
                         <a href="mailto:tiwaridaksh22@gmail.com"> tiwaridaksh22@gmail.com</a>
                     </div>

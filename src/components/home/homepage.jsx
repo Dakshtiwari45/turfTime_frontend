@@ -11,6 +11,7 @@ const HomePage = () => {
   const [skip, setSkip] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showAllTurfs, setShowAllTurfs] = useState(false); // To control Load More/Load Less visibility
 
   // Function to fetch turfs from the API, with optional search query
   const fetchTurfs = async (skipCount = 0, query = "") => {
@@ -46,6 +47,7 @@ const HomePage = () => {
   // When the search query changes, reset skip and fetch filtered results
   useEffect(() => {
     setSkip(0);
+    setShowAllTurfs(false); // Reset showAllTurfs when search query changes
     fetchTurfs(0, searchQuery);
   }, [searchQuery]);
 
@@ -53,7 +55,15 @@ const HomePage = () => {
   const handleLoadMore = () => {
     const newSkip = skip + 12;
     setSkip(newSkip);
+    setShowAllTurfs(true); // Show all turfs when "Load More" is clicked
     fetchTurfs(newSkip, searchQuery);
+  };
+
+  // Handler to load less turfs (show only the first 12)
+  const handleLoadLess = () => {
+    setSkip(0);
+    setShowAllTurfs(false); // Reset to show only the first 12 turfs
+    fetchTurfs(0, searchQuery);
   };
 
   // Handler for search initiated from Header
@@ -73,26 +83,38 @@ const HomePage = () => {
       <div className="content-wrapper">
         <Sidebar onFilterChange={handleFilterChange} />
         <div className="main-content">
-          <div className="turf-grid">
-            {turfs.map((turf) => (
-              <div
-                key={turf._id || turf.id}
-                className="turf-card"
-                onClick={() => navigate(`/booking/${turf._id || turf.id}`)}
-              >
-                <img
-                  src={`http://localhost:3000/api/turfs/image/${turf.image}`}
-                  alt={turf.name}
-                  className="turf-image"
-                />
-                <h2>{turf.name}</h2>
-                <p>{turf.address}</p>
-                <p className="price">{turf.price}</p>
-                <p className="rating">⭐ {turf.rating}</p>
+          <div className="turf-section">
+            <div className="turf-grid">
+              {turfs.map((turf) => (
+                <div
+                  key={turf._id || turf.id}
+                  className="turf-card"
+                  onClick={() => navigate(`/booking/${turf._id || turf.id}`)}
+                >
+                  <img
+                    src={`http://localhost:3000/api/turfs/image/${turf.image}`}
+                    alt={turf.name}
+                    className="turf-image"
+                  />
+                  <h2>{turf.name}</h2>
+                  <p>{turf.address}</p>
+                  <p className="price">{turf.price}</p>
+                  <p className="rating">⭐ {turf.rating}</p>
+                </div>
+              ))}
+            </div>
+            {/* Show Load More if showAllTurfs is false, else show Load Less */}
+            {hasMore && !showAllTurfs && (
+              <div className="load-more-container">
+                <button onClick={handleLoadMore}>Show More</button>
               </div>
-            ))}
+            )}
+            {showAllTurfs && (
+              <div className="load-more-container">
+                <button onClick={handleLoadLess}>Show Less</button>
+              </div>
+            )}
           </div>
-          {hasMore && <button onClick={handleLoadMore}>Load More</button>}
         </div>
       </div>
       <Footer />

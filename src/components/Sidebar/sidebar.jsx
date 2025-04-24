@@ -1,40 +1,29 @@
 import React, { useState } from "react";
-import "./Sidebar.css";
+import "./sidebar.css";
 
 const Sidebar = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({
     price: 0,
     rating: "",
-    parking: "",
-    turfType: "",
-    amenities: [],
   });
 
   const handleFilterChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
 
-    setFilters((prev) => {
-      const newFilters = {
-        ...prev,
-        [name]: type === "range" ? parseInt(value) : value,
-      };
-
-      if (type === "checkbox") {
-        newFilters.amenities = checked
-          ? [...prev.amenities, value]
-          : prev.amenities.filter((item) => item !== value);
-      }
-
-      return newFilters;
-    });
+    setFilters((prev) => ({
+      ...prev,
+      [name]: type === "range" ? parseInt(value) : value,
+    }));
   };
 
   const handleApply = async () => {
     try {
       const queryParams = new URLSearchParams(filters).toString();
-      const response = await fetch(`http://localhost:3000/api/turfs/filter?${queryParams}`);
+      const response = await fetch(
+        `http://localhost:3000/api/turfs/filter?${queryParams}`
+      );
       const data = await response.json();
-      onFilterChange(data); // Pass the filtered turfs back to the parent component
+      onFilterChange(data); // Send filtered data to parent
     } catch (err) {
       console.error("Error fetching filtered turfs:", err);
     }
@@ -59,7 +48,11 @@ const Sidebar = ({ onFilterChange }) => {
 
       <div className="filter-group">
         <label>Ratings:</label>
-        <select name="rating" value={filters.rating} onChange={handleFilterChange}>
+        <select
+          name="rating"
+          value={filters.rating}
+          onChange={handleFilterChange}
+        >
           <option value="">All</option>
           <option value="1">1⭐ & up</option>
           <option value="2">2⭐ & up</option>
@@ -69,59 +62,6 @@ const Sidebar = ({ onFilterChange }) => {
         </select>
       </div>
 
-      <div className="filter-group">
-        <label>Parking:</label>
-        <select name="parking" value={filters.parking} onChange={handleFilterChange}>
-          <option value="">All</option>
-          <option value="yes">Available</option>
-          <option value="no">Not Available</option>
-        </select>
-      </div>
-
-      <div className="filter-group">
-        <label>Turf Type:</label>
-        <select name="turfType" value={filters.turfType} onChange={handleFilterChange}>
-          <option value="">All</option>
-          <option value="Artificial Turf">Artificial</option>
-          <option value="Clay">Clay</option>
-          <option value="Grass">Grass</option>
-        </select>
-      </div>
-
-      <div className="filter-group">
-        <label>Amenities:</label>
-        <div className="checkbox-group">
-          <label>
-            Washroom{" "}
-            <input
-              type="checkbox"
-              value="washroom"
-              onChange={handleFilterChange}
-              checked={filters.amenities.includes("washroom")}
-            />
-          </label>
-          <label>
-            Changing Room{" "}
-            <input
-              type="checkbox"
-              value="changing-room"
-              onChange={handleFilterChange}
-              checked={filters.amenities.includes("changing-room")}
-            />
-          </label>
-          <label>
-            Seating Area{" "}
-            <input
-              type="checkbox"
-              value="seating-area"
-              onChange={handleFilterChange}
-              checked={filters.amenities.includes("seating-area")}
-            />
-          </label>
-        </div>
-      </div>
-
-      {/* 🔍 Trigger search here */}
       <button className="apply-btn" onClick={handleApply}>
         Apply
       </button>

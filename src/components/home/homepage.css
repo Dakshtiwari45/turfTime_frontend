@@ -152,6 +152,39 @@
     margin-left: 210px;
   }
 }
+/* Turf Section Wrapper for spacing below header */
+.turf-section {
+  margin-top: 40px;
+}
+
+/* Style for the Load More button to align it at the bottom */
+/* Turf Section Wrapper for spacing below header */
+.turf-section {
+  margin-top: 40px;
+}
+
+/* Style for the Load More button to align it at the bottom */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.load-more-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #1a2a6c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.load-more-container button:hover {
+  background-color: #b21f1f;
+  transition: background-color 0.3s;
+}
+
 
 @media (max-width: 768px) {
   .sidebar {
