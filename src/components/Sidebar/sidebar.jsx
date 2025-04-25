@@ -5,6 +5,7 @@ const Sidebar = ({ onFilterChange }) => {
   const [filters, setFilters] = useState({
     price: 0,
     rating: "",
+    turfType: "", // Added turfType field
   });
 
   const handleFilterChange = (e) => {
@@ -59,6 +60,20 @@ const Sidebar = ({ onFilterChange }) => {
           <option value="3">3⭐ & up</option>
           <option value="4">4⭐ & up</option>
           <option value="5">5⭐</option>
+        </select>
+      </div>
+
+      <div className="filter-group">
+        <label>Turf Type:</label>
+        <select
+          name="turfType"
+          value={filters.turfType}
+          onChange={handleFilterChange}
+        >
+          <option value="">All</option>
+          <option value="artificial">Artificial</option>
+          <option value="grass">Grass</option>
+          <option value="clay">Clay</option>
         </select>
       </div>
 

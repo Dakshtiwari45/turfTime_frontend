@@ -1,15 +1,15 @@
 .sidebar {
   width: 260px;
   background: linear-gradient(180deg, #1e3a8a, #153061);
-  padding: 15px;
+  padding: 30px 15px 15px 15px;
   color: white;
   position: fixed;
-  top: 80px; /* Header ke neeche adjust */
+  top: 80px; /* This is already good - positioned 80px from top to account for header */
   left: 0;
-  height: calc(100vh - 80px); /* Full height */
+  height: calc(100vh - 80px);
   overflow-y: auto;
   box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 10; /* Sidebar ko footer ke upar rakha */
+  z-index: 10;
 }
 
 /* Sidebar Heading */
@@ -18,8 +18,9 @@
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 35px; /* Increased space below heading */
   color: #ffcc00;
+  margin-top: 20px; /* Added margin-top to move content down */
 }
 
 /* Sidebar Filters */
@@ -35,8 +36,7 @@
   color: #ffcc00;
 }
 
-.filter-group select,
-.filter-group input[type="range"] {
+.filter-group select, .filter-group input[type="range"] {
   width: 100%;
   padding: 10px;
   border: none;
@@ -92,16 +92,19 @@
   .sidebar {
     width: 220px;
     padding: 15px;
+    top: 60px; /* Adjusted for mobile header which might be smaller */
+    height: calc(100vh - 60px);
   }
-
+  
   .sidebar h2 {
     font-size: 18px;
+    margin-top: 15px; /* Adjusted for mobile */
   }
-
+  
   .filter-group label {
     font-size: 14px;
   }
-
+  
   .filter-group select,
   .filter-group input[type="range"] {
     font-size: 12px;

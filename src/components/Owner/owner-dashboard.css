@@ -22,7 +22,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-top: 10px;
+  margin-top: 70px; /* Increased from 10px to account for header height */
   position: fixed;
   left: 0;
   top: 0;
@@ -138,7 +138,8 @@
   background: #1e3a8a;
 }
 
-.turf-card button {
+/* Booking Button (Green) */
+.turf-card .booking-button {
   background: #10b981;
   color: white;
   padding: 8px 15px;
@@ -151,6 +152,10 @@
   text-align: center;
 }
 
+.turf-card .booking-button:hover {
+  background: #059669;
+}
+
 .turf-card button a {
   text-decoration: none;
   color: white;
@@ -159,12 +164,8 @@
   height: 100%;
 }
 
-.turf-card button:hover {
-  background: #059669;
-}
-
-/* Delete Button */
-.delete-button {
+/* Delete Button (Red) */
+.turf-card .delete-button {
   background-color: #ef4444; /* Tailwind red-500 */
   color: white;
   padding: 8px 15px;
@@ -177,7 +178,7 @@
   text-align: center;
 }
 
-.delete-button:hover {
+.turf-card .delete-button:hover {
   background-color: #dc2626; /* Tailwind red-600 */
 }
 
@@ -191,6 +192,7 @@
     position: relative;
     width: 100%;
     height: auto;
+    margin-top: 60px; /* Adjusted for mobile */
   }
 
   .sidebar ul {
