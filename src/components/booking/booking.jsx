@@ -14,50 +14,56 @@ const timeSlots = [
   "10:00 PM - 12:00 AM",
 ];
 
-// Static reviews
-const staticReviews = [
-  {
-    reviewer: "Rahul Sharma",
-    rating: 5,
-    comment: "Fantastic turf, well maintained and easy booking!",
-    date: "2025-04-10",
-  },
-  {
-    reviewer: "Sneha Patel",
-    rating: 4,
-    comment: "Great experience, but parking was a bit tight.",
-    date: "2025-04-12",
-  },
-  {
-    reviewer: "Amit Verma",
-    rating: 4.5,
-    comment: "Lovely grounds and friendly staff. Will book again.",
-    date: "2025-04-15",
-  },
-];
-
 const Booking = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // turfId
   const [turf, setTurf] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]);
+  const [loadingTurf, setLoadingTurf] = useState(true);
+  const [loadingReviews, setLoadingReviews] = useState(true);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchTurf = async () => {
+    (async () => {
       try {
         const res = await fetch(`http://localhost:3000/api/turfs/${id}`);
         if (!res.ok) throw new Error("Failed to fetch turf");
-        const data = await res.json();
-        setTurf(data);
+        setTurf(await res.json());
       } catch (err) {
-        console.error("Error:", err);
+        console.error(err);
+        setError("Could not load turf details.");
       } finally {
-        setLoading(false);
+        setLoadingTurf(false);
       }
-    };
-    fetchTurf();
+    })();
+  }, [id]);
+
+  useEffect(() => {
+    (async () => {
+
+      const token = localStorage.getItem("token");
+    if (!token) {
+      setError("You need to log in first.");
+      return;
+    }
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/rating/rating-review/${id}`, {
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json" 
+          },
+        });
+        if (!res.ok) throw new Error("Failed to fetch reviews");
+        const json = await res.json();
+        setReviews(json.reviews);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoadingReviews(false);
+      }
+    })();
   }, [id]);
 
   const handleBooking = async () => {
@@ -65,11 +71,13 @@ const Booking = () => {
       setError("Please select a date and a time slot.");
       return;
     }
+
     const token = localStorage.getItem("token");
     if (!token) {
       setError("You need to log in first.");
       return;
     }
+
     try {
       const res = await fetch("http://localhost:3000/api/bookings/", {
         method: "POST",
@@ -91,7 +99,8 @@ const Booking = () => {
     }
   };
 
-  if (loading) return <div>Loading turf details...</div>;
+  if (loadingTurf) return <div>Loading turf details…</div>;
+
   if (!turf) {
     return (
       <div className="error-container">
@@ -119,7 +128,6 @@ const Booking = () => {
 
           <div className="booking-section">
             <h2>Book Your Slot</h2>
-
             <label>Select Date:</label>
             <input
               type="date"
@@ -151,30 +159,30 @@ const Booking = () => {
         {/* Right: Reviews */}
         <div className="review-section">
           <h2>Reviews & Ratings</h2>
-          {staticReviews.map((r, i) => (
-            <div key={i} className="review-card">
-              <div className="stars">
-                {Array.from({ length: 5 }, (_, idx) => {
-                  const filled = idx < Math.floor(r.rating);
-                  const half = !filled && idx < r.rating;
-                  return (
-                    <span key={idx}>
-                      {filled
-                        ? "★"
-                        : half
-                        ? "☆" /* or use a half-star icon if you prefer */
-                        : "☆"}
+          {loadingReviews ? (
+            <p>Loading reviews…</p>
+          ) : reviews.length === 0 ? (
+            <p>No reviews yet.</p>
+          ) : (
+            reviews.map((r, idx) => (
+              <div key={idx} className="review-card">
+                <div className="stars">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <span key={i}>
+                      {i < Math.floor(r.rating) ? "★" : "☆"}
                     </span>
-                  );
-                })}
+                  ))}
+                </div>
+                <p className="comment">“{r.review}”</p>
+                <p className="reviewer">
+                  — {r.userName},{" "}
+                  <span className="review-date">
+                    {new Date(r.date).toLocaleDateString()}
+                  </span>
+                </p>
               </div>
-              <p className="comment">“{r.comment}”</p>
-              <p className="reviewer">
-                — {r.reviewer},{" "}
-                <span className="review-date">{r.date}</span>
-              </p>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
       <Footer />
