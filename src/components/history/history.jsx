@@ -8,7 +8,12 @@ const History = () => {
   const [loading, setLoading] = useState(true);
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedTurf, setSelectedTurf] = useState({ id: null, name: '' });
+  const [selectedTurf, setSelectedTurf] = useState({
+    bookingId: null,
+    turfId: null,
+    turfName: ''
+  });
+  
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
 
@@ -41,16 +46,19 @@ const History = () => {
   }, []);
 
   const openModal = (booking) => {
-    setSelectedTurf({ id: booking.turf._id, name: booking.turf.name });
+    setSelectedTurf({
+      id: booking.turf._id, // Match the API's expected field name
+      name: booking.turf.name,
+      bookingId: booking._id
+    });
     setReviewText('');
     setRating(0);
     setShowModal(true);
   };
-
-  // 2. Submit or update review via Fetch API
+  
   const handleSubmitReview = async () => {
     if (!rating) return alert('Please select a rating.');
-
+  
     try {
       const res = await fetch('http://localhost:3000/api/rating/', {
         method: 'POST',
@@ -59,16 +67,26 @@ const History = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({
+          bookingId: selectedTurf.bookingId,
           turfId: selectedTurf.id,
+          userId: localStorage.getItem('userId') || localStorage.getItem('ownerId'),
+           // Match the API's expected field name
           rating,
           review: reviewText
         })
       });
+  
       if (!res.ok) {
         const msg = await res.text();
         throw new Error(msg || 'Failed to submit review');
       }
+  
+      const data = await res.json();
+  
+      // Display success message and update UI with the new average rating
       alert(`Your ${rating}-star review for "${selectedTurf.name}" has been submitted!`);
+      console.log('New average rating:', data.averageRating);
+  
       setShowModal(false);
     } catch (err) {
       console.error('Error submitting review:', err);

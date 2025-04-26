@@ -37,6 +37,35 @@ function OwnerDashboard() {
     }
   };
 
+  const handleDelete = (turfId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this turf?");
+    if (confirmDelete) {
+      fetch('http://localhost:3000/api/turfs/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id: turfId }),  // Send 'id' instead of 'turfId'
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setTurfs(turfs.filter((turf) => turf._id !== turfId));
+          alert("Turf deleted successfully!");
+          navigate(0);
+        } else {
+          alert(data.message);  // If deletion failed, show message from server
+        }
+      })
+      .catch((err) => {
+        console.error("Error deleting turf:", err);
+        alert("Error deleting turf.");
+      });
+    }
+  };
+  
+
   return (
     <div className="dashboard-container">
       <Header />
@@ -64,8 +93,8 @@ function OwnerDashboard() {
 
         <div className="turf-list">
           {turfs.length > 0 ? (
-            turfs.map((turf, index) => (
-              <div key={index} className="turf-card">
+            turfs.map((turf) => (
+              <div key={turf._id} className="turf-card">
                 <img
                   src={`http://localhost:3000/api/turfs/image/${turf.image}`}
                   alt={turf.name}
@@ -75,7 +104,7 @@ function OwnerDashboard() {
                 <p>📍 {turf.address}</p>
                 <p>💵 {turf.price}</p>
                 <button className="booking-button">
-                  <Link to="/ownerbooking">Bookings</Link>
+                  <Link to={`/ownerbooking/${turf._id}`}>Bookings</Link>
                 </button>
                 <button
                   className="delete-button"

@@ -31,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/about" element={<About />} />
         <Route path="/booking/:id" element={<Booking/>}/>
         <Route path="/history" element={<History/>}/>
-        <Route path="/ownerbooking" element={<OwnerBookings/>} />
+        <Route path="/ownerbooking/:turfId" element={<OwnerBookings/>} />
         <Route path="/managebooking" element={<ManageBookings/>} />
       </Routes>
     </Router>
