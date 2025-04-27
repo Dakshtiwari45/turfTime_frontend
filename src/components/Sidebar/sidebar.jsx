@@ -71,9 +71,9 @@ const Sidebar = ({ onFilterChange }) => {
           onChange={handleFilterChange}
         >
           <option value="">All</option>
-          <option value="artificial">Artificial</option>
-          <option value="grass">Grass</option>
-          <option value="clay">Clay</option>
+          <option value="Artificial Turf">Artificial</option>
+          <option value="Grass">Grass</option>
+          <option value="Clay">Clay</option>
         </select>
       </div>
 

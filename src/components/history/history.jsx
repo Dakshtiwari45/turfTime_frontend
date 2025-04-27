@@ -68,6 +68,7 @@ const History = () => {
         body: JSON.stringify({
           bookingId: selectedTurf.bookingId,
           turfId: selectedTurf.turfId,
+          userId: localStorage.getItem('userId') || localStorage.getItem('ownerId'),
           rating,
           review: reviewText
         })
