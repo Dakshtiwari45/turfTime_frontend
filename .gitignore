@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Local-only config file
-src/config.js
+src/components/config.js
