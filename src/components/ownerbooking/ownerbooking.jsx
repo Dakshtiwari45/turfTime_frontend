@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { API_URL } from '../config';
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import "./ownerbooking.css";
@@ -16,7 +17,7 @@ const OwnerBookings = () => {
     try {
       setLoading(true); // Set loading to true when the fetch starts
 
-      const response = await fetch(`http://localhost:3000/api/bookings/turf/${turfId}?page=${pageNumber}&pageSize=12`, {
+      const response = await fetch(`${API_URL}/api/bookings/turf/${turfId}?page=${pageNumber}&pageSize=12`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}` // Authorization header with token

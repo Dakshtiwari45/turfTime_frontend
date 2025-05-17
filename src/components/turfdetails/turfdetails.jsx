@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_URL } from '../config';
 import "./turfdetails.css";
 
 function TurfDetails() {
@@ -48,7 +49,7 @@ function TurfDetails() {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/turfs/create",
+        `${API_URL}/api/turfs/create`,
         {
           method: "POST",
           headers: {

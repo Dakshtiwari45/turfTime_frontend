@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from '../config';
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Sidebar from "../Sidebar/sidebar";
@@ -16,7 +17,7 @@ const HomePage = () => {
   // Function to fetch turfs from the API, with optional search query
   const fetchTurfs = async (skipCount = 0, query = "") => {
     try {
-      let url = `http://localhost:3000/api/turfs?limit=12&skip=${skipCount}`;
+      let url = `${API_URL}/api/turfs?limit=12&skip=${skipCount}`;
       if (query) {
         url += `&query=${encodeURIComponent(query)}`;
       }
@@ -92,7 +93,7 @@ const HomePage = () => {
                   onClick={() => navigate(`/booking/${turf._id || turf.id}`)}
                 >
                   <img
-                    src={`http://localhost:3000/api/turfs/image/${turf.image}`}
+                    src={`${API_URL}/api/turfs/image/${turf.image}`}
                     alt={turf.name}
                     className="turf-image"
                   />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from '../config';
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import "./managebooking.css";
@@ -17,7 +18,7 @@ function ManageBookings() {
     const fetchBookings = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/bookings/${ownerId}/active`,
+          `${API_URL}/api/bookings/${ownerId}/active`,
           {
             method: "GET",
             headers: {
@@ -51,7 +52,7 @@ function ManageBookings() {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/bookings/close/${id}`,
+        `${API_URL}/api/bookings/close/${id}`,
         {
           method: "POST",
           headers: {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from '../config';
 import "./signup.css";
 import signupVideo from "/public/video(1).mp4"; // Make sure to place your video here
 
@@ -54,7 +55,7 @@ const Signup = () => {
     console.log("Signup Data:", signupData);
   
     try {
-      const response = await fetch("http://localhost:3000/api/auth/signup", {
+      const response = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

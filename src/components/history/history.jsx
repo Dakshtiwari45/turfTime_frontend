@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import './history.css';
@@ -20,7 +21,7 @@ const History = () => {
   const fetchBookings = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:3000/api/bookings/', {
+      const res = await fetch(`${API_URL}/api/bookings/`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -59,7 +60,7 @@ const History = () => {
     if (!rating) return alert('Please select a rating.');
 
     try {
-      const res = await fetch('http://localhost:3000/api/rating/', {
+      const res = await fetch(`${API_URL}/api/rating/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -107,7 +108,7 @@ const History = () => {
               <div className="history-card" key={b._id}>
                 <h3>{b.turf.name}</h3>
                 <img
-                  src={`http://localhost:3000/api/turfs/image/${b.turf.image}`}
+                  src={`${API_URL}/api/turfs/image/${b.turf.image}`}
                   alt={b.turf.name}
                   className="turf-image"
                 />

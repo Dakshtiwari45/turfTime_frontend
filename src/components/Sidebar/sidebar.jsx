@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_URL } from '../config';
 import "./sidebar.css";
 
 const Sidebar = ({ onFilterChange }) => {
@@ -21,7 +22,7 @@ const Sidebar = ({ onFilterChange }) => {
     try {
       const queryParams = new URLSearchParams(filters).toString();
       const response = await fetch(
-        `http://localhost:3000/api/turfs/filter?${queryParams}`
+        `${API_URL}/api/turfs/filter?${queryParams}`
       );
       const data = await response.json();
       onFilterChange(data); // Send filtered data to parent

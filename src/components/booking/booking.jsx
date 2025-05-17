@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { API_URL } from '../config';
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import "./booking.css";
@@ -27,7 +28,7 @@ const Booking = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/turfs/${id}`);
+        const res = await fetch(`${API_URL}/api/turfs/${id}`);
         if (!res.ok) throw new Error("Failed to fetch turf");
         setTurf(await res.json());
       } catch (err) {
@@ -49,7 +50,7 @@ const Booking = () => {
     }
 
       try {
-        const res = await fetch(`http://localhost:3000/api/rating/rating-review/${id}`, {
+        const res = await fetch(`${API_URL}/api/rating/rating-review/${id}`, {
           headers: { 
             Authorization: `Bearer ${token}`,
             Accept: "application/json" 
@@ -79,7 +80,7 @@ const Booking = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/bookings/", {
+      const res = await fetch(`${API_URL}/api/bookings/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,7 +118,7 @@ const Booking = () => {
         {/* Left: Turf Info + Booking Form */}
         <div className="turf-info">
           <img
-            src={`http://localhost:3000/api/turfs/image/${turf.image}`}
+            src={`${API_URL}/api/turfs/image/${turf.image}`}
             alt={turf.name}
             className="turf-image"
           />

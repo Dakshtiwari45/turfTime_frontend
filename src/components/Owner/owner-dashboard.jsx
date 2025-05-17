@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from '../config';
 import "./owner-dashboard.css";
 import Header from "../header/header";
 
@@ -11,7 +12,7 @@ function OwnerDashboard() {
 
   useEffect(() => {
     if (ownerId) {
-      fetch(`http://localhost:3000/api/turfs/owner/${ownerId}`, {
+      fetch(`${API_URL}/api/turfs/owner/${ownerId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +41,7 @@ function OwnerDashboard() {
   const handleDelete = (turfId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this turf?");
     if (confirmDelete) {
-      fetch('http://localhost:3000/api/turfs/delete', {
+      fetch(`${API_URL}/api/turfs/delete`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ function OwnerDashboard() {
             turfs.map((turf) => (
               <div key={turf._id} className="turf-card">
                 <img
-                  src={`http://localhost:3000/api/turfs/image/${turf.image}`}
+                  src={`${API_URL}/api/turfs/image/${turf.image}`}
                   alt={turf.name}
                   className="turf-image"
                 />
